@@ -279,18 +279,18 @@ $(function() {
     var swiper = new Swiper(".hero-slider .swiper-container", {
         preloadImages: false,
         loop: true,
-		resistance: true,
+        resistance: true,
         resistanceRatio: 0.85,
-		parallax: false,
-		effect: "slide",
-		mousewheel: {
+        parallax: false,
+        effect: "slide",
+        mousewheel: {
             enable: true
         },
         grabCursor: true,
         centeredSlides: false,
-        speed: 2000,
+        speed: 1500,
         spaceBetween: 0,
-        init: true,
+        initialSlide: 0,
         pagination: {
             el: ".swiper-slide-pagination",
             clickable: true
@@ -300,27 +300,59 @@ $(function() {
             prevEl: ".slide-prev"
         },
         autoplay: {
-            delay: 2400,
+            delay: 4000,
             disableOnInteraction: false
         },
         breakpoints: {
             768: {
                 pagination: false
             }
+        },
+        on: {
+            init: function() {
+                updateIndicators(this.realIndex);
+            },
+            slideChange: function() {
+                updateIndicators(this.realIndex);
+            }
         }
     });
+    
+    // Function to update area indicators
+    function updateIndicators(index) {
+        var indicators = document.querySelectorAll('.area-indicator');
+        indicators.forEach(function(ind, i) {
+            ind.classList.remove('active');
+            if (i === index) {
+                ind.classList.add('active');
+            }
+        });
+    }
+    
     var imgSwiper = new Swiper(".hero-slider-img .swiper-container", {
         preloadImages: false,
         loop: true,
         resistance: true,
         parallax: true,
         effect: "slide",
+        initialSlide: 0,
         mousewheel: {
             enable: true
         }
     });
     swiper.controller.control = imgSwiper;
     imgSwiper.controller.control = swiper;
+    
+    // Make swiper globally accessible
+    window.astraSwiper = swiper;
+    
+    // Area indicator click handlers
+    var indicators = document.querySelectorAll('.area-indicator');
+    indicators.forEach(function(indicator, index) {
+        indicator.addEventListener('click', function() {
+            swiper.slideToLoop(index, 1500);
+        });
+    });
     var playButton = $(".swiper-slide-controls-play-pause-wrapper");
     function autoEnd() {
         playButton.removeClass("slider-on-off");

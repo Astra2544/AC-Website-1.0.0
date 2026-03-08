@@ -1,9 +1,10 @@
 /*
   Astra Capital e.U. - Custom JavaScript
-  Theme Toggle, Enhanced Slider & Custom Interactions
+  Theme Toggle, Slider Synchronization & Custom Interactions
 */
 
-$(function() {
+// Wait for DOM and all scripts to be ready
+document.addEventListener('DOMContentLoaded', function() {
     "use strict";
     
     // ============================================
@@ -32,63 +33,12 @@ $(function() {
         htmlElement.setAttribute('data-theme', theme);
         
         if (lightThemeLink) {
-            if (theme === 'light') {
-                lightThemeLink.disabled = false;
-            } else {
-                lightThemeLink.disabled = true;
-            }
+            lightThemeLink.disabled = (theme !== 'light');
         }
         
-        // Update body class for additional styling hooks
         document.body.classList.remove('theme-dark', 'theme-light');
         document.body.classList.add('theme-' + theme);
     }
-    
-    
-    // ============================================
-    // AREA INDICATORS CLICK FUNCTIONALITY
-    // ============================================
-    
-    const areaIndicators = document.querySelectorAll('.area-indicator');
-    
-    areaIndicators.forEach(function(indicator) {
-        indicator.addEventListener('click', function() {
-            const slideIndex = parseInt(this.getAttribute('data-slide'));
-            
-            // Trigger swiper to go to this slide
-            if (typeof swiper !== 'undefined' && swiper.slideTo) {
-                swiper.slideTo(slideIndex);
-            }
-            
-            // Update active state
-            areaIndicators.forEach(function(ind) {
-                ind.classList.remove('active');
-            });
-            this.classList.add('active');
-        });
-    });
-    
-    
-    // ============================================
-    // SWIPER SLIDE CHANGE HANDLER
-    // ============================================
-    
-    // Wait for swiper to be initialized
-    setTimeout(function() {
-        if (typeof swiper !== 'undefined') {
-            swiper.on('slideChange', function() {
-                const activeIndex = swiper.realIndex;
-                
-                // Update area indicators
-                areaIndicators.forEach(function(indicator, index) {
-                    indicator.classList.remove('active');
-                    if (index === activeIndex) {
-                        indicator.classList.add('active');
-                    }
-                });
-            });
-        }
-    }, 1000);
     
     
     // ============================================
@@ -100,8 +50,6 @@ $(function() {
     comingSoonLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Show a subtle notification
             showNotification('Dieser Bereich ist demnächst verfügbar!');
         });
     });
@@ -112,13 +60,11 @@ $(function() {
     // ============================================
     
     function showNotification(message) {
-        // Remove existing notification if any
         const existingNotification = document.querySelector('.astra-notification');
         if (existingNotification) {
             existingNotification.remove();
         }
         
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = 'astra-notification';
         notification.innerHTML = `
@@ -134,7 +80,6 @@ $(function() {
             </div>
         `;
         
-        // Add styles
         notification.style.cssText = `
             position: fixed;
             top: 100px;
@@ -155,13 +100,11 @@ $(function() {
         
         document.body.appendChild(notification);
         
-        // Animate in
         setTimeout(function() {
             notification.style.opacity = '1';
             notification.style.transform = 'translateX(-50%) translateY(0)';
         }, 10);
         
-        // Remove after delay
         setTimeout(function() {
             notification.style.opacity = '0';
             notification.style.transform = 'translateX(-50%) translateY(-20px)';
@@ -171,83 +114,7 @@ $(function() {
         }, 3000);
     }
     
-    // Make notification function globally available
     window.showAstraNotification = showNotification;
-    
-    
-    // ============================================
-    // SMOOTH REVEAL ON LOAD
-    // ============================================
-    
-    $(window).on("load", function() {
-        // Add loaded class to body for CSS animations
-        setTimeout(function() {
-            document.body.classList.add('page-loaded');
-        }, 100);
-    });
-    
-    
-    // ============================================
-    // KEYBOARD NAVIGATION
-    // ============================================
-    
-    document.addEventListener('keydown', function(e) {
-        // Left arrow - previous slide
-        if (e.key === 'ArrowLeft') {
-            if (typeof swiper !== 'undefined' && swiper.slidePrev) {
-                swiper.slidePrev();
-            }
-        }
-        // Right arrow - next slide
-        if (e.key === 'ArrowRight') {
-            if (typeof swiper !== 'undefined' && swiper.slideNext) {
-                swiper.slideNext();
-            }
-        }
-        // T key - toggle theme
-        if (e.key === 't' || e.key === 'T') {
-            if (themeToggle) {
-                themeToggle.click();
-            }
-        }
-    });
-    
-    
-    // ============================================
-    // PARALLAX EFFECT ON MOUSE MOVE
-    // ============================================
-    
-    const heroSection = document.querySelector('.hero-fullscreen');
-    
-    if (heroSection && window.innerWidth > 768) {
-        document.addEventListener('mousemove', function(e) {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            
-            const bgElements = document.querySelectorAll('.hero-slider-bg');
-            bgElements.forEach(function(el) {
-                el.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.1)`;
-            });
-        });
-    }
-    
-    
-    // ============================================
-    // PRELOADER ENHANCEMENT
-    // ============================================
-    
-    // Custom preloader timing
-    $(window).on("load", function() {
-        setTimeout(function() {
-            $("#preloader").addClass('fade-out');
-            $(".preloader-bg").addClass('fade-out');
-        }, 500);
-        
-        setTimeout(function() {
-            $("#preloader").fadeOut(600);
-            $(".preloader-bg").fadeOut(600);
-        }, 800);
-    });
     
     
     // ============================================
@@ -256,5 +123,79 @@ $(function() {
     
     console.log('%c Astra Capital e.U. ', 'background: #ff264a; color: white; font-size: 20px; font-weight: bold; padding: 10px 20px;');
     console.log('%c Powered by Astra Development ', 'color: #ff264a; font-size: 12px;');
+});
+
+
+// ============================================
+// SWIPER & AREA INDICATORS SYNCHRONIZATION
+// This runs after jQuery and Swiper are ready
+// ============================================
+
+$(function() {
+    "use strict";
     
+    const areaIndicators = document.querySelectorAll('.area-indicator');
+    
+    // Function to update active indicator
+    function updateActiveIndicator(realIndex) {
+        areaIndicators.forEach(function(indicator, i) {
+            indicator.classList.remove('active');
+            if (i === realIndex) {
+                indicator.classList.add('active');
+            }
+        });
+    }
+    
+    // Wait for Swiper to initialize (it's created in ultimex.js)
+    function initSwiperSync() {
+        // Get the swiper instance from the DOM element
+        const swiperEl = document.querySelector('.hero-slider .swiper-container');
+        
+        if (!swiperEl || !swiperEl.swiper) {
+            // Retry if swiper not ready yet
+            setTimeout(initSwiperSync, 200);
+            return;
+        }
+        
+        const swiper = swiperEl.swiper;
+        console.log('Astra: Swiper found, initializing sync...');
+        
+        // Set initial state
+        updateActiveIndicator(swiper.realIndex);
+        
+        // Listen to all relevant events
+        swiper.on('slideChange', function() {
+            updateActiveIndicator(this.realIndex);
+        });
+        
+        swiper.on('slideChangeTransitionEnd', function() {
+            updateActiveIndicator(this.realIndex);
+        });
+        
+        // Click handlers for area indicators
+        areaIndicators.forEach(function(indicator, index) {
+            indicator.addEventListener('click', function() {
+                // slideToLoop handles the loop mode correctly
+                swiper.slideToLoop(index, 1000);
+                updateActiveIndicator(index);
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                swiper.slidePrev();
+            } else if (e.key === 'ArrowRight') {
+                swiper.slideNext();
+            } else if (e.key === 't' || e.key === 'T') {
+                const toggle = document.getElementById('theme-toggle');
+                if (toggle) toggle.click();
+            }
+        });
+        
+        console.log('Astra: Swiper sync initialized successfully!');
+    }
+    
+    // Start initialization after a short delay to ensure Swiper is ready
+    setTimeout(initSwiperSync, 500);
 });
