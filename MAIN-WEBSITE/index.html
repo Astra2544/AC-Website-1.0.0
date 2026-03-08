@@ -288,12 +288,14 @@
             });
             
             window.onload = function() {
+                // Fixed delay - zeigt Loader für mindestens 3.5 Sekunden
+                var loaderTime = 3500;
                 setTimeout(function() {
                     var p = document.getElementById('preloader');
                     var b = document.querySelector('.preloader-bg');
                     if(p) p.classList.add('loaded');
                     if(b) b.classList.add('loaded');
-                }, 2200);
+                }, loaderTime);
             };
             
             function setTheme(theme) {
