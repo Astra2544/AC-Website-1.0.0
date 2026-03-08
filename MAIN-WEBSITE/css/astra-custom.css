@@ -12,11 +12,6 @@
     --transition-fast: 0.3s ease;
 }
 
-/* Verstecke die custom Area Indicators - benutze die originalen eckigen */
-.area-indicators {
-    display: none !important;
-}
-
 /* ============================================
    SIMPLE THEME TOGGLE - Neben der Navigation
    ============================================ */
@@ -79,7 +74,7 @@
 /* Mobile - Alle Elemente auf gleicher Höhe */
 @media only screen and (max-width: 995px) {
     .theme-toggle-wrapper {
-        top: 20px;
+        top: 13px;
         right: 15px;
     }
     
@@ -96,8 +91,8 @@
     /* Mobile Navbar - Standard Layout behalten */
     .navbar-toggle {
         position: absolute !important;
-        right: 60px !important;
-        top: 15px !important;
+        right: 55px !important;
+        top: 13px !important;
         margin: 0 !important;
     }
     
