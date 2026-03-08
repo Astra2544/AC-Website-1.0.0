@@ -1,35 +1,98 @@
 /*
   Astra Capital e.U. - Custom JavaScript
-  Theme Toggle, Slider Synchronization & Custom Interactions
+  Theme Toggle with Wave Animation, Slider Sync & More
 */
 
-// Wait for DOM and all scripts to be ready
+// Wait for DOM
 document.addEventListener('DOMContentLoaded', function() {
     "use strict";
     
     // ============================================
-    // THEME TOGGLE FUNCTIONALITY
+    // PRELOADER
+    // ============================================
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            document.getElementById('preloader').classList.add('loaded');
+            document.querySelector('.preloader-bg').classList.add('loaded');
+        }, 800);
+    });
+    
+    // ============================================
+    // THEME TOGGLE WITH WAVE ANIMATION
     // ============================================
     
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
     const lightThemeLink = document.getElementById('light-theme');
     
-    // Check for saved theme preference or default to 'dark'
-    const savedTheme = localStorage.getItem('astra-theme') || 'dark';
-    setTheme(savedTheme);
+    // Create wave overlay
+    createWaveOverlay();
     
-    // Theme toggle click handler
+    // Load saved theme
+    const savedTheme = localStorage.getItem('astra-theme') || 'dark';
+    setTheme(savedTheme, false);
+    
+    // Theme toggle click
     if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', function(e) {
             const currentTheme = htmlElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-            localStorage.setItem('astra-theme', newTheme);
+            
+            // Get click position for wave origin
+            const rect = themeToggle.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            // Trigger wave animation
+            triggerWaveAnimation(x, y, newTheme);
+            
+            // Set theme after small delay
+            setTimeout(function() {
+                setTheme(newTheme, true);
+                localStorage.setItem('astra-theme', newTheme);
+            }, 400);
         });
     }
     
-    function setTheme(theme) {
+    function createWaveOverlay() {
+        const overlay = document.createElement('div');
+        overlay.className = 'theme-transition-overlay';
+        overlay.innerHTML = '<div class="theme-wave"></div>';
+        document.body.appendChild(overlay);
+    }
+    
+    function triggerWaveAnimation(x, y, newTheme) {
+        const wave = document.querySelector('.theme-wave');
+        if (!wave) return;
+        
+        // Set wave color based on new theme
+        const waveColor = newTheme === 'light' ? '#f5f5f5' : '#000000';
+        
+        // Calculate size needed to cover screen
+        const maxDim = Math.max(window.innerWidth, window.innerHeight);
+        const size = maxDim * 2.5;
+        
+        // Position and style wave
+        wave.style.cssText = `
+            left: ${x - size/2}px;
+            top: ${y - size/2}px;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${waveColor};
+        `;
+        
+        // Remove and re-add class to restart animation
+        wave.classList.remove('animate');
+        void wave.offsetWidth; // Force reflow
+        wave.classList.add('animate');
+        
+        // Clean up after animation
+        setTimeout(function() {
+            wave.classList.remove('animate');
+        }, 800);
+    }
+    
+    function setTheme(theme, animate) {
         htmlElement.setAttribute('data-theme', theme);
         
         if (lightThemeLink) {
@@ -40,44 +103,30 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('theme-' + theme);
     }
     
-    
     // ============================================
-    // COMING SOON LINK PREVENTION
+    // COMING SOON LINKS
     // ============================================
     
-    const comingSoonLinks = document.querySelectorAll('.coming-soon-link');
-    
-    comingSoonLinks.forEach(function(link) {
+    document.querySelectorAll('.coming-soon-link').forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Dieser Bereich ist demnächst verfügbar!');
+            showNotification('Dieser Bereich ist bald verfügbar!');
         });
     });
     
-    
     // ============================================
-    // NOTIFICATION SYSTEM
+    // NOTIFICATION
     // ============================================
     
     function showNotification(message) {
-        const existingNotification = document.querySelector('.astra-notification');
-        if (existingNotification) {
-            existingNotification.remove();
-        }
+        const existing = document.querySelector('.astra-notification');
+        if (existing) existing.remove();
         
         const notification = document.createElement('div');
         notification.className = 'astra-notification';
         notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>
-                </span>
-                <span class="notification-text">${message}</span>
-            </div>
+            <span style="color: var(--primary-color);">●</span>
+            <span>${message}</span>
         `;
         
         notification.style.cssText = `
@@ -85,17 +134,19 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 100px;
             left: 50%;
             transform: translateX(-50%) translateY(-20px);
-            background: rgba(255, 38, 74, 0.95);
+            background: rgba(0, 0, 0, 0.9);
             color: #fff;
-            padding: 15px 30px;
+            padding: 15px 25px;
             border-radius: 8px;
             font-family: 'Raleway', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 13px;
             z-index: 99999;
             opacity: 0;
             transition: all 0.4s ease;
-            box-shadow: 0 10px 40px rgba(255, 38, 74, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 38, 74, 0.3);
         `;
         
         document.body.appendChild(notification);
@@ -107,95 +158,66 @@ document.addEventListener('DOMContentLoaded', function() {
         
         setTimeout(function() {
             notification.style.opacity = '0';
-            notification.style.transform = 'translateX(-50%) translateY(-20px)';
-            setTimeout(function() {
-                notification.remove();
-            }, 400);
+            setTimeout(function() { notification.remove(); }, 400);
         }, 3000);
     }
     
-    window.showAstraNotification = showNotification;
-    
-    
     // ============================================
-    // CONSOLE BRANDING
+    // KEYBOARD SHORTCUTS
     // ============================================
     
-    console.log('%c Astra Capital e.U. ', 'background: #ff264a; color: white; font-size: 20px; font-weight: bold; padding: 10px 20px;');
-    console.log('%c Powered by Astra Development ', 'color: #ff264a; font-size: 12px;');
+    document.addEventListener('keydown', function(e) {
+        // T = Toggle Theme
+        if (e.key === 't' || e.key === 'T') {
+            if (themeToggle) themeToggle.click();
+        }
+    });
+    
+    // Console branding
+    console.log('%c ASTRA CAPITAL ', 'background: #ff264a; color: white; font-size: 20px; font-weight: bold; padding: 10px 20px;');
 });
 
 
 // ============================================
-// SWIPER & AREA INDICATORS SYNCHRONIZATION
-// This runs after jQuery and Swiper are ready
+// SWIPER SYNC (runs after jQuery loads)
 // ============================================
 
 $(function() {
     "use strict";
     
-    const areaIndicators = document.querySelectorAll('.area-indicator');
+    const indicators = document.querySelectorAll('.area-indicator');
     
-    // Function to update active indicator
-    function updateActiveIndicator(realIndex) {
-        areaIndicators.forEach(function(indicator, i) {
-            indicator.classList.remove('active');
-            if (i === realIndex) {
-                indicator.classList.add('active');
-            }
+    function updateIndicators(index) {
+        indicators.forEach(function(ind, i) {
+            ind.classList.remove('active');
+            if (i === index) ind.classList.add('active');
         });
     }
     
-    // Wait for Swiper to initialize (it's created in ultimex.js)
     function initSwiperSync() {
-        // Get the swiper instance from the DOM element
         const swiperEl = document.querySelector('.hero-slider .swiper-container');
-        
         if (!swiperEl || !swiperEl.swiper) {
-            // Retry if swiper not ready yet
             setTimeout(initSwiperSync, 200);
             return;
         }
         
         const swiper = swiperEl.swiper;
-        console.log('Astra: Swiper found, initializing sync...');
         
-        // Set initial state
-        updateActiveIndicator(swiper.realIndex);
+        // Initial state
+        updateIndicators(swiper.realIndex);
         
-        // Listen to all relevant events
+        // Sync on slide change
         swiper.on('slideChange', function() {
-            updateActiveIndicator(this.realIndex);
+            updateIndicators(this.realIndex);
         });
         
-        swiper.on('slideChangeTransitionEnd', function() {
-            updateActiveIndicator(this.realIndex);
-        });
-        
-        // Click handlers for area indicators
-        areaIndicators.forEach(function(indicator, index) {
+        // Click handlers
+        indicators.forEach(function(indicator, index) {
             indicator.addEventListener('click', function() {
-                // slideToLoop handles the loop mode correctly
-                swiper.slideToLoop(index, 1000);
-                updateActiveIndicator(index);
+                swiper.slideToLoop(index, 1500);
             });
         });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                swiper.slidePrev();
-            } else if (e.key === 'ArrowRight') {
-                swiper.slideNext();
-            } else if (e.key === 't' || e.key === 'T') {
-                const toggle = document.getElementById('theme-toggle');
-                if (toggle) toggle.click();
-            }
-        });
-        
-        console.log('Astra: Swiper sync initialized successfully!');
     }
     
-    // Start initialization after a short delay to ensure Swiper is ready
     setTimeout(initSwiperSync, 500);
 });
