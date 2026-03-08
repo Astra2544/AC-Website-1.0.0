@@ -1,0 +1,348 @@
+/*
+  Astra Capital e.U. - Pages Styles
+  Styles for individual area pages
+*/
+
+/* ============================================
+   BACK TO PORTAL BUTTON
+   ============================================ */
+.back-to-portal {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    z-index: 9998;
+    transition: all 0.3s ease;
+}
+
+.back-to-portal:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    transform: translateX(-5px);
+}
+
+.back-to-portal svg {
+    transition: transform 0.3s ease;
+}
+
+.back-to-portal:hover svg {
+    transform: translateX(-3px);
+}
+
+[data-theme="light"] .back-to-portal {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+[data-theme="light"] .back-to-portal:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+@media only screen and (max-width: 768px) {
+    .back-to-portal {
+        top: 15px;
+        left: 15px;
+        padding: 8px 15px;
+        font-size: 10px;
+    }
+    
+    .back-to-portal span {
+        display: none;
+    }
+}
+
+
+/* ============================================
+   PAGE HERO SECTION
+   ============================================ */
+.page-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.page-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.1);
+    transition: transform 10s ease;
+}
+
+.page-hero:hover .page-hero-bg {
+    transform: scale(1);
+}
+
+/* Background images for each area */
+.development-bg {
+    background-image: url(../img/background/hero-bg-1.jpg);
+}
+
+.ecom-bg {
+    background-image: url(../img/background/hero-bg-2.jpg);
+}
+
+.consulting-bg {
+    background-image: url(../img/background/hero-bg-3.jpg);
+}
+
+.vending-bg {
+    background-image: url(../img/background/hero-bg-4.jpg);
+}
+
+.page-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+}
+
+[data-theme="light"] .page-hero-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.7) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.7) 100%
+    );
+}
+
+.page-hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.page-hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.page-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.page-title span {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .page-title {
+    color: #000;
+}
+
+.page-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+[data-theme="light"] .page-description {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+@media only screen and (max-width: 768px) {
+    .page-title {
+        font-size: 50px;
+    }
+    
+    .page-description {
+        font-size: 16px;
+    }
+}
+
+
+/* ============================================
+   PAGE SCROLL INDICATOR
+   ============================================ */
+.page-scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.page-scroll-indicator span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .page-scroll-indicator span {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.page-scroll-indicator .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--primary-color), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scaleY(0.8);
+    }
+}
+
+
+/* ============================================
+   PAGE CONTENT SECTION
+   ============================================ */
+.page-content {
+    background: var(--bg-primary);
+    padding: 100px 0;
+    min-height: 50vh;
+}
+
+[data-theme="light"] .page-content {
+    background: #f5f5f5;
+}
+
+.page-content .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+
+/* ============================================
+   COMING SOON SECTION (for placeholder pages)
+   ============================================ */
+.coming-soon-section {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.coming-soon-icon {
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.coming-soon-section h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+[data-theme="light"] .coming-soon-section h2 {
+    color: #000;
+}
+
+.coming-soon-section p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+    line-height: 1.8;
+}
+
+[data-theme="light"] .coming-soon-section p {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* ============================================
+   ADDITIONAL ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
