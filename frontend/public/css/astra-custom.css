@@ -12,12 +12,9 @@
     --transition-fast: 0.3s ease;
 }
 
-/* Verstecke die Standard Swiper Pagination - wir haben eigene Indicators */
-.swiper-slide-pagination,
-.swiper-pagination {
+/* Verstecke die custom Area Indicators - benutze die originalen eckigen */
+.area-indicators {
     display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
 }
 
 /* ============================================
@@ -25,7 +22,7 @@
    ============================================ */
 .theme-toggle-wrapper {
     position: fixed;
-    top: 28px;
+    top: 38px;
     right: 30px;
     z-index: 9999;
 }
@@ -75,19 +72,20 @@
     }
     
     .theme-toggle-wrapper {
-        top: 28px;
+        top: 38px;
     }
 }
 
+/* Mobile - Alle Elemente auf gleicher Höhe */
 @media only screen and (max-width: 995px) {
     .theme-toggle-wrapper {
-        top: 22px;
+        top: 20px;
         right: 15px;
     }
     
     .theme-toggle {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
     }
     
     .theme-toggle svg {
@@ -95,36 +93,16 @@
         height: 18px;
     }
     
-    /* Mobile Navbar - alles auf gleicher Höhe */
-    .navbar {
-        padding: 0 15px !important;
-    }
-    
-    .navbar .container-fluid {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 70px;
-        padding: 0 !important;
-    }
-    
-    .navbar-header {
-        display: flex;
-        align-items: center;
-        float: none !important;
-    }
-    
+    /* Mobile Navbar - Standard Layout behalten */
     .navbar-toggle {
-        position: relative !important;
-        float: none !important;
+        position: absolute !important;
+        right: 60px !important;
+        top: 15px !important;
         margin: 0 !important;
-        padding: 10px !important;
-        margin-left: auto !important;
-        margin-right: 50px !important;
     }
     
     .logo {
-        margin: 0 !important;
+        margin-left: 10px !important;
     }
 }
 
