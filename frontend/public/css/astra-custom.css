@@ -1,0 +1,617 @@
+/*
+  Astra Capital e.U. - Custom Styles
+  Fusion of Ultimex, Blackex & Doex Templates
+  Dark/Light Theme Support
+*/
+
+/* ============================================
+   CSS VARIABLES - THEME COLORS
+   ============================================ */
+:root {
+    --primary-color: #ff264a;
+    --primary-color-rgb: 255, 38, 74;
+    --primary-hover: #ff4560;
+    
+    /* Dark Theme (Default) */
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #111111;
+    --bg-card: #0f0f0f;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --text-muted: rgba(255, 255, 255, 0.5);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.85);
+    
+    /* Transitions */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.5s ease;
+    --transition-slow: 0.8s ease;
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --bg-tertiary: #eeeeee;
+    --bg-card: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: rgba(0, 0, 0, 0.8);
+    --text-muted: rgba(0, 0, 0, 0.5);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(255, 255, 255, 0.85);
+}
+
+
+/* ============================================
+   THEME TOGGLE SWITCH
+   ============================================ */
+.theme-toggle-wrapper {
+    position: fixed;
+    top: 30px;
+    right: 100px;
+    z-index: 9999;
+}
+
+@media only screen and (max-width: 995px) {
+    .theme-toggle-wrapper {
+        top: 20px;
+        right: 70px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .theme-toggle-wrapper {
+        top: 15px;
+        right: 60px;
+    }
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+}
+
+[data-theme="light"] .theme-toggle {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.toggle-icon svg {
+    transition: all var(--transition-fast);
+}
+
+.sun-icon {
+    color: #ffc107;
+    opacity: 0.5;
+}
+
+.moon-icon {
+    color: #fff;
+    opacity: 1;
+}
+
+[data-theme="light"] .sun-icon {
+    opacity: 1;
+    color: #ff9800;
+}
+
+[data-theme="light"] .moon-icon {
+    opacity: 0.5;
+    color: #333;
+}
+
+.toggle-slider {
+    width: 36px;
+    height: 20px;
+    background: linear-gradient(135deg, #333 0%, #555 100%);
+    border-radius: 20px;
+    position: relative;
+    transition: all var(--transition-fast);
+}
+
+.toggle-slider::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(var(--primary-color-rgb), 0.4);
+}
+
+[data-theme="light"] .toggle-slider {
+    background: linear-gradient(135deg, #ddd 0%, #bbb 100%);
+}
+
+[data-theme="light"] .toggle-slider::after {
+    left: 18px;
+}
+
+
+/* ============================================
+   COMING SOON STYLES
+   ============================================ */
+.coming-soon-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #ff6b7a 100%);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    animation: pulse-badge 2s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(var(--primary-color-rgb), 0.4);
+}
+
+@keyframes pulse-badge {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(var(--primary-color-rgb), 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 30px rgba(var(--primary-color-rgb), 0.6);
+    }
+}
+
+.coming-soon-slide .swiper-slide-txt-inner {
+    position: relative;
+}
+
+.coming-soon-text {
+    opacity: 0.6 !important;
+}
+
+.post-title-color-muted {
+    color: rgba(255, 38, 74, 0.5) !important;
+}
+
+.overlay-coming-soon {
+    filter: grayscale(60%) !important;
+}
+
+.cover-coming-soon {
+    background: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Coming Soon Navigation Links */
+.coming-soon-link {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    position: relative;
+}
+
+.coming-soon-link::after {
+    content: 'Soon';
+    position: absolute;
+    top: 50%;
+    right: -35px;
+    transform: translateY(-50%);
+    font-size: 8px;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+}
+
+@media only screen and (max-width: 768px) {
+    .coming-soon-link::after {
+        right: auto;
+        left: calc(100% + 10px);
+    }
+}
+
+
+/* ============================================
+   AREA BUTTON STYLES
+   ============================================ */
+.area-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.area-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    transition: all var(--transition-fast);
+    z-index: -1;
+}
+
+.area-button:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.area-button:hover::before {
+    left: 0;
+}
+
+.area-button:hover .button-arrow {
+    transform: translateX(5px);
+}
+
+.button-text {
+    position: relative;
+    z-index: 1;
+}
+
+.button-arrow {
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-fast);
+    position: relative;
+    z-index: 1;
+}
+
+.button-arrow svg {
+    stroke: currentColor;
+}
+
+/* Disabled Button (Coming Soon) */
+.area-button-disabled {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.area-button-disabled::before {
+    display: none;
+}
+
+.area-button-disabled .button-arrow svg {
+    stroke: rgba(255, 255, 255, 0.5);
+}
+
+
+/* ============================================
+   AREA INDICATORS (Bottom)
+   ============================================ */
+.area-indicators {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    z-index: 100;
+}
+
+@media only screen and (max-width: 768px) {
+    .area-indicators {
+        bottom: 20px;
+        gap: 15px;
+    }
+}
+
+.area-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    opacity: 0.5;
+}
+
+.area-indicator:hover,
+.area-indicator.active {
+    opacity: 1;
+}
+
+.indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.area-indicator:hover .indicator-dot,
+.area-indicator.active .indicator-dot {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.5);
+}
+
+.indicator-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all var(--transition-fast);
+}
+
+.area-indicator:hover .indicator-text,
+.area-indicator.active .indicator-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Coming Soon Indicators */
+.coming-soon-indicator {
+    opacity: 0.3;
+}
+
+.coming-soon-indicator .indicator-dot {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.coming-soon-indicator:hover .indicator-dot,
+.coming-soon-indicator.active .indicator-dot {
+    background: rgba(var(--primary-color-rgb), 0.4);
+    border-color: rgba(var(--primary-color-rgb), 0.4);
+}
+
+
+/* ============================================
+   LOGO HANDLING FOR THEMES
+   ============================================ */
+.logo-dark {
+    display: none;
+}
+
+.logo-light {
+    display: block;
+}
+
+[data-theme="light"] .logo-dark {
+    display: block;
+}
+
+[data-theme="light"] .logo-light {
+    display: none;
+}
+
+
+/* ============================================
+   LIGHT THEME SPECIFIC OVERRIDES
+   ============================================ */
+[data-theme="light"] body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .preloader-bg,
+[data-theme="light"] #preloader {
+    background: var(--bg-primary);
+}
+
+[data-theme="light"] .loader {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .loader span {
+    border-top-color: var(--primary-color);
+}
+
+[data-theme="light"] .navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+[data-theme="light"] .main-navigation .navbar-nav li a {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .main-navigation .navbar-nav li a:hover {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .post-title,
+[data-theme="light"] .post-heading,
+[data-theme="light"] p {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .swiper-slide-txt-inner p {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .social-icons ul li a {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .bottom-credits-lead {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .overlay-cover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .hero-slider-bg.overlay-dark::before {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .area-button {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .area-button:hover {
+    color: #fff;
+}
+
+[data-theme="light"] .indicator-text {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .vertical-effect {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .dot-pattern-home {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.1) 5%, transparent 0);
+}
+
+[data-theme="light"] .navbar-toggle .icon-bar {
+    background: var(--text-primary);
+}
+
+
+/* ============================================
+   ENHANCED ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.swiper-slide-active .post-heading {
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.swiper-slide-active .post-title {
+    animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.swiper-slide-active p {
+    animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.swiper-slide-active .area-button,
+.swiper-slide-active .area-button-disabled {
+    animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.swiper-slide-active .coming-soon-badge {
+    animation: fadeInUp 0.8s ease 0s both;
+}
+
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media only screen and (max-width: 768px) {
+    .area-button {
+        padding: 12px 24px;
+        font-size: 11px;
+    }
+    
+    .coming-soon-badge {
+        font-size: 9px;
+        padding: 6px 14px;
+    }
+    
+    .area-indicators {
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 90%;
+    }
+    
+    .indicator-text {
+        font-size: 8px;
+    }
+}
+
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+
+
+/* ============================================
+   SELECTION STYLING
+   ============================================ */
+::selection {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+::-moz-selection {
+    background: var(--primary-color);
+    color: #fff;
+}
