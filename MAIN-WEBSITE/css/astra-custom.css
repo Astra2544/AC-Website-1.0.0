@@ -27,7 +27,7 @@
 }
 
 /* ============================================
-   CUSTOM PRELOADER - Modern & Clean
+   CUSTOM PRELOADER - Modern Loading Bar
    ============================================ */
 .preloader-bg {
     position: fixed;
@@ -37,6 +37,7 @@
     height: 100%;
     background: #000;
     z-index: 99998;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
 #preloader {
@@ -48,10 +49,14 @@
     background: #000;
     z-index: 99999;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 40px;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
+/* Logo Text */
 #preloader-status {
     display: flex;
     flex-direction: column;
@@ -59,135 +64,123 @@
     gap: 30px;
 }
 
-/* Astra Logo Animation */
-.preloader-position {
-    position: relative;
-    width: 80px;
-    height: 80px;
-}
-
-.preloader-position::before {
-    content: 'A';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#preloader-status::before {
+    content: 'ASTRA';
     font-family: 'Oswald', sans-serif;
-    font-size: 36px;
+    font-size: 42px;
     font-weight: 700;
-    color: var(--primary-color);
-    animation: pulse-logo 1.5s ease-in-out infinite;
+    letter-spacing: 0.2em;
+    color: #fff;
 }
 
-@keyframes pulse-logo {
-    0%, 100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-        opacity: 0.5;
-        transform: translate(-50%, -50%) scale(0.9);
-    }
+#preloader-status::after {
+    content: 'CAPITAL';
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: -20px;
 }
 
-/* Rotating Ring */
-.loader {
-    width: 80px;
-    height: 80px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
+/* Loading Bar Container */
+.preloader-position {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
     position: relative;
 }
 
-.loader span {
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    width: 100%;
-    height: 100%;
-    border: 2px solid transparent;
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-.loader span::before {
+/* Loading Bar Animation */
+.preloader-position::before {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    border: 2px solid transparent;
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1.5s linear reverse infinite;
-    opacity: 0.5;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-color), #ff6b7a, var(--primary-color));
+    background-size: 200% 100%;
+    border-radius: 2px;
+    animation: loading-bar 2s ease-in-out forwards, shimmer 1s linear infinite;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes loading-bar {
+    0% {
+        width: 0%;
+    }
+    20% {
+        width: 20%;
+    }
+    50% {
+        width: 60%;
+    }
+    80% {
+        width: 85%;
+    }
+    100% {
+        width: 100%;
+    }
 }
 
-/* Loading Text */
-#preloader-status::after {
-    content: 'ASTRA CAPITAL';
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Hide the span element */
+.preloader-position span,
+.loader span {
+    display: none;
+}
+
+/* Percentage Counter */
+.preloader-position::after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: 'Oswald', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    color: rgba(255, 255, 255, 0.5);
-    animation: fade-text 1.5s ease-in-out infinite;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.3);
 }
 
-@keyframes fade-text {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}
-
-/* Preloader Exit Animation */
+/* Preloader Exit */
 .preloader-bg.loaded,
 #preloader.loaded {
     opacity: 0;
     visibility: hidden;
-    transition: all 0.8s ease;
 }
 
 /* ============================================
-   THEME TRANSITION - Wave Animation
+   THEME WAVE ANIMATION
    ============================================ */
-.theme-transition-overlay {
+.theme-wave-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 9997;
     overflow: hidden;
 }
 
-.theme-wave {
+.theme-wave-circle {
     position: absolute;
     border-radius: 50%;
-    transform: scale(0);
+    width: 0;
+    height: 0;
     opacity: 0;
-}
-
-.theme-wave.animate {
-    animation: wave-expand 0.8s ease-out forwards;
-}
-
-@keyframes wave-expand {
-    0% {
-        transform: scale(0);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(4);
-        opacity: 0;
-    }
+    will-change: width, height, opacity;
 }
 
 /* ============================================
