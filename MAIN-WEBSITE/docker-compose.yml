@@ -1,65 +1,24 @@
-# =====================================================
 # Astra Capital e.U. - Docker Compose
-# =====================================================
 
 version: '3.8'
 
 services:
   astra-website:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    
-    container_name: ${CONTAINER_NAME}
-    restart: ${CONTAINER_RESTART}
-    
+    build: .
+    container_name: astra-capital-website
+    restart: unless-stopped
     ports:
-      - "${EXTERNAL_PORT}:${INTERNAL_PORT}"
-    
+      - "8080:80"
     environment:
-      - CONTAINER_NAME=${CONTAINER_NAME}
-      - CONTAINER_RESTART=${CONTAINER_RESTART}
-      - INTERNAL_PORT=${INTERNAL_PORT}
-      - EXTERNAL_PORT=${EXTERNAL_PORT}
-      - DOMAIN=${DOMAIN}
-      - TIMEZONE=${TIMEZONE}
-      - TZ=${TIMEZONE}
-      - CPU_LIMIT=${CPU_LIMIT}
-      - MEMORY_LIMIT=${MEMORY_LIMIT}
-      - CPU_RESERVATION=${CPU_RESERVATION}
-      - MEMORY_RESERVATION=${MEMORY_RESERVATION}
-      - LOG_PATH=${LOG_PATH}
-      - NETWORK_NAME=${NETWORK_NAME}
-      - NETWORK_DRIVER=${NETWORK_DRIVER}
-      - HEALTHCHECK_INTERVAL=${HEALTHCHECK_INTERVAL}
-      - HEALTHCHECK_TIMEOUT=${HEALTHCHECK_TIMEOUT}
-      - HEALTHCHECK_RETRIES=${HEALTHCHECK_RETRIES}
-      - HEALTHCHECK_START_PERIOD=${HEALTHCHECK_START_PERIOD}
-      - CONTACT_EMAIL=${CONTACT_EMAIL}
-    
+      - TZ=Europe/Vienna
     volumes:
-      - ${LOG_PATH}:/var/log/nginx
-    
-    networks:
-      - astra-net
-    
-    deploy:
-      resources:
-        limits:
-          cpus: '${CPU_LIMIT}'
-          memory: ${MEMORY_LIMIT}
-        reservations:
-          cpus: '${CPU_RESERVATION}'
-          memory: ${MEMORY_RESERVATION}
-    
+      - ./logs:/var/log/nginx
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${INTERNAL_PORT}/"]
-      interval: ${HEALTHCHECK_INTERVAL}
-      timeout: ${HEALTHCHECK_TIMEOUT}
-      retries: ${HEALTHCHECK_RETRIES}
-      start_period: ${HEALTHCHECK_START_PERIOD}
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
-  astra-net:
-    driver: ${NETWORK_DRIVER}
-    name: ${NETWORK_NAME}
+  default:
+    name: astra-network
