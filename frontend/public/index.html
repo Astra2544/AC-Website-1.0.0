@@ -288,8 +288,8 @@
             });
             
             window.onload = function() {
-                // Fixed delay - zeigt Loader für mindestens 3.5 Sekunden
-                var loaderTime = 3500;
+                // Timing: Text reveal (0.3s + 0.8s) + Bar expand (1s + 0.6s) + Bar fill (1.2s + 1.8s) = ~3.5s total
+                var loaderTime = 3800;
                 setTimeout(function() {
                     var p = document.getElementById('preloader');
                     var b = document.querySelector('.preloader-bg');

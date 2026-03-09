@@ -27,7 +27,7 @@
 }
 
 /* ============================================
-   CUSTOM PRELOADER - Split Animation
+   CUSTOM PRELOADER - KRASS Edition
    ============================================ */
 .preloader-bg {
     position: fixed;
@@ -37,7 +37,7 @@
     height: 100%;
     background: #000;
     z-index: 99998;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
 }
 
 #preloader {
@@ -51,7 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
 }
 
 #preloader-status {
@@ -60,169 +60,227 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 200px;
+    gap: 0;
 }
 
-/* ASTRA Text - moves up */
-#preloader-status::before {
-    content: 'ASTRA';
-    font-family: 'Oswald', sans-serif;
-    font-size: 64px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    animation: splitUp 1s ease-out 0.3s forwards;
-}
-
-/* CAPITAL Text - moves down */
-#preloader-status::after {
-    content: 'CAPITAL';
-    font-family: 'Oswald', sans-serif;
-    font-size: 64px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    animation: splitDown 1s ease-out 0.3s forwards;
-}
-
-@keyframes splitUp {
-    0% {
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    100% {
-        top: 0;
-        transform: translateY(0);
-    }
-}
-
-@keyframes splitDown {
-    0% {
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    100% {
-        top: auto;
-        bottom: 0;
-        transform: translateY(0);
-    }
-}
-
-/* Loading Bar Container - appears in the middle */
+/* Container für die Texte */
 .preloader-position {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 280px;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeInBar 0.5s ease-out 1s forwards;
-}
-
-@keyframes fadeInBar {
-    0% {
-        opacity: 0;
-        width: 100px;
-    }
-    100% {
-        opacity: 1;
-        width: 280px;
-    }
-}
-
-/* Loading Bar Fill */
-.preloader-position::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--primary-color), #ff6b7a, var(--primary-color));
-    background-size: 200% 100%;
-    border-radius: 3px;
-    animation: loadingFill 1.5s ease-in-out 1.3s forwards;
-}
-
-@keyframes loadingFill {
-    0% {
-        width: 0%;
-    }
-    30% {
-        width: 35%;
-    }
-    60% {
-        width: 70%;
-    }
-    100% {
-        width: 100%;
-    }
-}
-
-/* Percentage text under bar */
-.preloader-position::after {
-    content: 'LOADING';
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Raleway', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    color: rgba(255, 255, 255, 0.3);
-    opacity: 0;
-    animation: fadeInText 0.5s ease-out 1.2s forwards;
-}
-
-@keyframes fadeInText {
-    to { opacity: 1; }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
 }
 
 /* Hide the original span element */
 .preloader-position span,
-.loader,
 .loader span {
     display: none !important;
 }
 
-/* Preloader Exit */
+/* ASTRA Text */
+#preloader-status::before {
+    content: 'ASTRA';
+    font-family: 'Oswald', sans-serif;
+    font-size: 90px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #fff;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: textRevealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+/* CAPITAL Text */
+#preloader-status::after {
+    content: 'CAPITAL';
+    font-family: 'Oswald', sans-serif;
+    font-size: 90px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #fff;
+    line-height: 1;
+    margin-top: 60px;
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: textRevealDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+/* Loading Bar - zwischen den Texten */
+.preloader-position::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    animation: barExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+}
+
+/* Loading Bar Fill - der rote Teil */
+.preloader-position::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 
+        0 0 20px rgba(255, 38, 74, 0.6),
+        0 0 40px rgba(255, 38, 74, 0.4),
+        0 0 60px rgba(255, 38, 74, 0.2);
+    animation: barFillGlow 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+}
+
+/* Text erscheint von unten nach oben */
+@keyframes textRevealUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        letter-spacing: 0.4em;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 0.2em;
+    }
+}
+
+/* Text erscheint von oben nach unten */
+@keyframes textRevealDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+        letter-spacing: 0.4em;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 0.2em;
+    }
+}
+
+/* Bar expandiert */
+@keyframes barExpand {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    100% {
+        width: 320px;
+        opacity: 1;
+    }
+}
+
+/* Bar füllt sich mit Glow */
+@keyframes barFillGlow {
+    0% {
+        width: 0;
+    }
+    15% {
+        width: 50px;
+    }
+    30% {
+        width: 100px;
+    }
+    50% {
+        width: 160px;
+    }
+    70% {
+        width: 240px;
+    }
+    85% {
+        width: 290px;
+    }
+    100% {
+        width: 320px;
+    }
+}
+
+/* Preloader Exit - Epic Fade */
 .preloader-bg.loaded,
 #preloader.loaded {
     opacity: 0;
     visibility: hidden;
 }
 
+#preloader.loaded #preloader-status::before,
+#preloader.loaded #preloader-status::after {
+    animation: textExitUp 0.5s cubic-bezier(0.4, 0, 1, 1) forwards,
+               textExitDown 0.5s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes textExitUp {
+    to {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+}
+
+@keyframes textExitDown {
+    to {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+}
+
 /* Mobile adjustments */
 @media only screen and (max-width: 768px) {
     #preloader-status::before,
     #preloader-status::after {
-        font-size: 42px;
+        font-size: 52px;
+        letter-spacing: 0.15em;
     }
     
-    .preloader-position {
-        width: 200px;
+    #preloader-status::after {
+        margin-top: 45px;
     }
     
-    @keyframes fadeInBar {
+    @keyframes barExpand {
         0% {
+            width: 0;
             opacity: 0;
-            width: 80px;
         }
         100% {
+            width: 220px;
             opacity: 1;
-            width: 200px;
         }
+    }
+    
+    @keyframes barFillGlow {
+        0% { width: 0; }
+        15% { width: 35px; }
+        30% { width: 70px; }
+        50% { width: 110px; }
+        70% { width: 165px; }
+        85% { width: 200px; }
+        100% { width: 220px; }
+    }
+}
+
+/* Extra small screens */
+@media only screen and (max-width: 400px) {
+    #preloader-status::before,
+    #preloader-status::after {
+        font-size: 38px;
+    }
+    
+    #preloader-status::after {
+        margin-top: 35px;
+    }
+    
+    @keyframes barExpand {
+        100% { width: 160px; }
+    }
+    
+    @keyframes barFillGlow {
+        100% { width: 160px; }
     }
 }
 
