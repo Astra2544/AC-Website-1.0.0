@@ -1,8 +1,6 @@
 # =====================================================
 # Astra Capital e.U. - Docker Compose
 # =====================================================
-# ALLE Variablen werden aus .env geladen!
-# =====================================================
 
 version: '3.8'
 
@@ -19,9 +17,24 @@ services:
       - "${EXTERNAL_PORT}:${INTERNAL_PORT}"
     
     environment:
+      - CONTAINER_NAME=${CONTAINER_NAME}
+      - CONTAINER_RESTART=${CONTAINER_RESTART}
+      - INTERNAL_PORT=${INTERNAL_PORT}
+      - EXTERNAL_PORT=${EXTERNAL_PORT}
+      - DOMAIN=${DOMAIN}
+      - TIMEZONE=${TIMEZONE}
       - TZ=${TIMEZONE}
-      - NGINX_HOST=${DOMAIN}
-      - NGINX_PORT=${INTERNAL_PORT}
+      - CPU_LIMIT=${CPU_LIMIT}
+      - MEMORY_LIMIT=${MEMORY_LIMIT}
+      - CPU_RESERVATION=${CPU_RESERVATION}
+      - MEMORY_RESERVATION=${MEMORY_RESERVATION}
+      - LOG_PATH=${LOG_PATH}
+      - NETWORK_NAME=${NETWORK_NAME}
+      - NETWORK_DRIVER=${NETWORK_DRIVER}
+      - HEALTHCHECK_INTERVAL=${HEALTHCHECK_INTERVAL}
+      - HEALTHCHECK_TIMEOUT=${HEALTHCHECK_TIMEOUT}
+      - HEALTHCHECK_RETRIES=${HEALTHCHECK_RETRIES}
+      - HEALTHCHECK_START_PERIOD=${HEALTHCHECK_START_PERIOD}
       - CONTACT_EMAIL=${CONTACT_EMAIL}
     
     volumes:
