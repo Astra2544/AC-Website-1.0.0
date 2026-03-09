@@ -99,12 +99,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
-    transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+    gap: 8px; /* Anfangs eng zusammen! */
+    transition: all 0.6s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 #preloader-status.expand {
-    gap: 25px;
+    gap: 30px; /* Text geht auseinander */
 }
 
 #preloader-status.compress {
@@ -126,19 +126,16 @@
 }
 
 .preloader-text-top {
-    transform: translateY(10px);
     animation: textFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 
 .preloader-text-bottom {
-    transform: translateY(-10px);
-    animation: textFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+    animation: textFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
 @keyframes textFadeIn {
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -146,14 +143,15 @@
 .preloader-bar {
     width: 280px;
     height: 4px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.25); /* Grauer Balken sichtbar */
     border-radius: 10px;
     overflow: hidden;
     opacity: 0;
     transform: scaleX(0);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Balken erscheint wenn Text auseinander geht */
 #preloader-status.expand .preloader-bar {
     opacity: 1;
     transform: scaleX(1);
@@ -169,20 +167,20 @@
     box-shadow: 
         0 0 15px rgba(255, 38, 74, 0.8),
         0 0 30px rgba(255, 38, 74, 0.5);
-    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     animation: shimmer 1s linear infinite;
 }
 
+/* Balken füllt sich rot NACHDEM er erscheint */
 #preloader-status.expand .preloader-bar-fill {
-    animation: barFillFast 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards,
+    animation: barFillFast 1.0s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards,
                shimmer 1s linear infinite;
 }
 
 @keyframes barFillFast {
     0% { width: 0; }
-    25% { width: 30%; }
-    50% { width: 60%; }
-    75% { width: 85%; }
+    30% { width: 35%; }
+    60% { width: 70%; }
+    85% { width: 92%; }
     100% { width: 100%; }
 }
 
