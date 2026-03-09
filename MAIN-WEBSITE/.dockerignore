@@ -1,0 +1,17 @@
+# Docker Ignore
+.git
+.gitignore
+.env
+.env.example
+*.md
+!MAIN-WEBSITE/**/*.md
+Dockerfile
+docker-compose.yml
+docker/
+logs/
+*.log
+*.tar.gz
+*.zip
+node_modules/
+.DS_Store
+Thumbs.db

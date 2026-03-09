@@ -2,44 +2,60 @@
 
 ## Über dieses Projekt
 
-Dies ist die offizielle Website von **Astra Capital e.U.** - eine moderne, professionelle Unternehmenswebsite, die als **Fusion aus 3 Premium-Templates** erstellt wurde:
+Dies ist die offizielle Website von **Astra Capital e.U.** - eine moderne, professionelle Unternehmenswebsite mit 4 Geschäftsbereichen.
 
-- **Ultimex** (One-Page Portfolio mit Lines)
-- **Blackex** (Scroll-Page Design)
-- **Doex** (Multi-Page Portfolio)
+---
 
-Die Website dient als **Portal** zu den verschiedenen Geschäftsbereichen von Astra Capital.
+## 🐳 Docker Deployment
+
+### Schnellstart
+
+```bash
+# 1. Environment Datei erstellen
+cp .env.example .env
+
+# 2. .env anpassen (Domain, Port, etc.)
+nano .env
+
+# 3. Docker Container starten
+docker-compose up -d --build
+
+# 4. Website erreichbar auf Port 8080
+curl http://localhost:8080
+```
+
+Siehe `DOCKER_README.md` für vollständige Dokumentation.
+
+### Nginx Reverse Proxy
+
+Für den externen Nginx (Port 80/443) siehe `NGINX_REVERSE_PROXY_PROMPT.md`.
+Der Prompt enthält eine vollständige Nginx-Konfiguration mit Platzhaltern für deine Domain.
 
 ---
 
 ## 📁 Verzeichnisstruktur
 
 ```
-/app/
-├── MAIN-WEBSITE/                    ← 🎯 HAUPTWEBSITE (Fusion)
-│   ├── index.html                   ← Startseite/Portal
-│   ├── css/
-│   │   ├── plugins.css              ← Externe Plugins (Bootstrap, etc.)
-│   │   ├── style-dark.css           ← Dark Theme Basis (von Ultimex)
-│   │   ├── style-light.css          ← Light Theme Basis
-│   │   ├── astra-custom.css         ← ⭐ Custom Astra Styles
-│   │   └── astra-pages.css          ← Styles für Unterseiten
-│   ├── js/
-│   │   ├── plugins.js               ← jQuery, Swiper, etc.
-│   │   ├── ultimex.js               ← Slider & Animationen (angepasst)
-│   │   └── astra-custom.js          ← ⭐ Theme Toggle & Custom JS
-│   ├── pages/                       ← Unterseiten der Bereiche
-│   │   ├── development.html         ← Astra Development
-│   │   └── ecom.html                ← Astra Ecom
-│   ├── img/                         ← Bilder & Assets
-│   └── fonts/                       ← Schriftarten
-│
-├── (ultimex)-one-page-portfolio/    ← Original Ultimex Template
-├── (blackex)-scroll-page/           ← Original Blackex Template
-├── (doex)-multi-page/               ← Original Doex Template
-│
-└── frontend/public/                 ← Live-Server Verzeichnis
-    └── (Kopie von MAIN-WEBSITE)
+/MAIN-WEBSITE/
+├── docker/                     ← Docker Konfigurationen
+│   ├── nginx.conf              ← Nginx Hauptconfig
+│   └── default.conf            ← Server Block
+├── pages/                      ← Bereichsseiten
+│   ├── development.html        ← Cyan (#00d4ff)
+│   ├── ecom.html               ← Grün (#00ff88)
+│   ├── consulting.html         ← Gold (#ffaa00)
+│   └── vending.html            ← Lila (#aa00ff)
+├── css/                        ← Stylesheets
+│   ├── astra-custom.css        ← Preloader & Portal
+│   └── astra-areas.css         ← MEGA-CSS für Bereiche
+├── js/                         ← JavaScript
+├── img/                        ← Bilder
+├── Dockerfile                  ← Docker Image
+├── docker-compose.yml          ← Container Orchestrierung
+├── .env.example                ← Beispiel Umgebungsvariablen
+├── index.html                  ← Portal/Startseite
+├── 404.html                    ← Error Page
+└── NGINX_REVERSE_PROXY_PROMPT.md ← Nginx Prompt
 ```
 
 ---
