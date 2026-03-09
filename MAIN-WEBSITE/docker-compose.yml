@@ -2,10 +2,6 @@
 # Astra Capital e.U. - Docker Compose
 # =====================================================
 # ALLE Variablen werden aus .env geladen!
-#
-# Starten: docker-compose up -d --build
-# Stoppen: docker-compose down
-# Logs:    docker-compose logs -f
 # =====================================================
 
 version: '3.8'
@@ -32,7 +28,7 @@ services:
       - ${LOG_PATH}:/var/log/nginx
     
     networks:
-      - ${NETWORK_NAME}
+      - astra-net
     
     deploy:
       resources:
@@ -51,6 +47,6 @@ services:
       start_period: ${HEALTHCHECK_START_PERIOD}
 
 networks:
-  astra-network:
+  astra-net:
     driver: ${NETWORK_DRIVER}
     name: ${NETWORK_NAME}
