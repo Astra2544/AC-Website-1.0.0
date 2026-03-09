@@ -1,83 +1,56 @@
 # =====================================================
 # Astra Capital e.U. - Docker Compose
 # =====================================================
+# ALLE Variablen werden aus .env geladen!
 #
 # Starten: docker-compose up -d --build
 # Stoppen: docker-compose down
 # Logs:    docker-compose logs -f
-# Rebuild: docker-compose up -d --build --force-recreate
-#
 # =====================================================
 
 version: '3.8'
 
 services:
-  # ===========================================
-  # ASTRA CAPITAL WEBSITE
-  # ===========================================
   astra-website:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: ${CONTAINER_NAME:-astra-capital-website}
-    restart: unless-stopped
     
-    # Port Mapping - Externer Port : Interner Port
+    container_name: ${CONTAINER_NAME}
+    restart: ${CONTAINER_RESTART}
+    
     ports:
-      - "${WEBSITE_PORT:-8080}:80"
+      - "${EXTERNAL_PORT}:${INTERNAL_PORT}"
     
-    # Umgebungsvariablen
     environment:
-      - TZ=${TIMEZONE:-Europe/Vienna}
-      - NGINX_HOST=${DOMAIN:-localhost}
-      - NGINX_PORT=80
+      - TZ=${TIMEZONE}
+      - NGINX_HOST=${DOMAIN}
+      - NGINX_PORT=${INTERNAL_PORT}
+      - CONTACT_EMAIL=${CONTACT_EMAIL}
     
-    # Volumes für Persistenz (optional)
     volumes:
-      # Logs
-      - ${LOG_PATH:-./logs}:/var/log/nginx
-      # Optional: Live-Reload der Website (für Entwicklung)
-      # - ./MAIN-WEBSITE:/usr/share/nginx/html:ro
+      - ${LOG_PATH}:/var/log/nginx
     
-    # Netzwerk
     networks:
-      - astra-network
+      - ${NETWORK_NAME}
     
-    # Resource Limits
     deploy:
       resources:
         limits:
-          cpus: '${CPU_LIMIT:-0.5}'
-          memory: ${MEMORY_LIMIT:-256M}
+          cpus: '${CPU_LIMIT}'
+          memory: ${MEMORY_LIMIT}
         reservations:
-          cpus: '0.1'
-          memory: 64M
+          cpus: '${CPU_RESERVATION}'
+          memory: ${MEMORY_RESERVATION}
     
-    # Health Check
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-    
-    # Labels für Traefik/andere Reverse Proxies (optional)
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.astra.rule=Host(`${DOMAIN:-localhost}`)"
-      - "traefik.http.services.astra.loadbalancer.server.port=80"
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${INTERNAL_PORT}/"]
+      interval: ${HEALTHCHECK_INTERVAL}
+      timeout: ${HEALTHCHECK_TIMEOUT}
+      retries: ${HEALTHCHECK_RETRIES}
+      start_period: ${HEALTHCHECK_START_PERIOD}
 
-# ===========================================
-# NETZWERKE
-# ===========================================
 networks:
   astra-network:
-    driver: bridge
-    name: ${NETWORK_NAME:-astra-network}
-
-# ===========================================
-# VOLUMES (optional für Logs)
-# ===========================================
-volumes:
-  astra-logs:
-    driver: local
+    driver: ${NETWORK_DRIVER}
+    name: ${NETWORK_NAME}
