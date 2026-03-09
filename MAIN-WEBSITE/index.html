@@ -295,28 +295,36 @@
             });
             
             window.onload = function() {
-                // Phase 1: Text erscheint + Bar lädt (0-2.2s)
-                // Phase 2: Alles komprimiert sich zu einem Strich (2.2-2.8s)
-                // Phase 3: Tor öffnet sich (2.8-3.8s)
+                // Phase 1: Text erscheint (0-0.8s)
+                // Phase 2: Text geht auf, Balken erscheint und lädt (0.8s-2.5s)
+                // Phase 3: Komprimieren (2.5s-3.1s)
+                // Phase 4: Tor öffnet sich (3.1s-4s)
                 
                 var wrapper = document.querySelector('.preloader-wrapper');
-                var preloader = document.getElementById('preloader');
                 var status = document.getElementById('preloader-status');
                 
-                // Phase 2: Nach 2.2s - Komprimieren
+                // Phase 2: Nach 0.8s - Text geht auf, Balken erscheint
                 setTimeout(function() {
-                    if(status) status.classList.add('compress');
-                }, 2200);
+                    if(status) status.classList.add('expand');
+                }, 800);
                 
-                // Phase 3: Nach 2.8s - Tor öffnen
+                // Phase 3: Nach 2.5s - Komprimieren
+                setTimeout(function() {
+                    if(status) {
+                        status.classList.remove('expand');
+                        status.classList.add('compress');
+                    }
+                }, 2500);
+                
+                // Phase 4: Nach 3.1s - Tor öffnen
                 setTimeout(function() {
                     if(wrapper) wrapper.classList.add('reveal');
-                }, 2800);
+                }, 3100);
                 
-                // Cleanup: Nach 3.8s alles entfernen
+                // Cleanup: Nach 4.1s
                 setTimeout(function() {
                     if(wrapper) wrapper.classList.add('done');
-                }, 3800);
+                }, 4100);
             };
             
             function setTheme(theme) {
