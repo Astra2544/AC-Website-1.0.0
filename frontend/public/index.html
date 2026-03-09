@@ -14,10 +14,17 @@
     </head>
     <body>
         <!-- preloader -->
-        <div class="preloader-bg"></div>
-        <div id="preloader">
-            <div id="preloader-status">
-                <div class="preloader-position loader"><span></span></div>
+        <div class="preloader-wrapper">
+            <div class="preloader-half preloader-top"></div>
+            <div class="preloader-half preloader-bottom"></div>
+            <div id="preloader">
+                <div id="preloader-status">
+                    <div class="preloader-text preloader-text-top">ASTRA</div>
+                    <div class="preloader-bar">
+                        <div class="preloader-bar-fill"></div>
+                    </div>
+                    <div class="preloader-text preloader-text-bottom">CAPITAL</div>
+                </div>
             </div>
         </div>
         
@@ -288,14 +295,28 @@
             });
             
             window.onload = function() {
-                // Timing: Text reveal (0.3s + 0.8s) + Bar expand (1s + 0.6s) + Bar fill (1.2s + 1.8s) = ~3.5s total
-                var loaderTime = 3800;
+                // Phase 1: Text erscheint + Bar lädt (0-2.2s)
+                // Phase 2: Alles komprimiert sich zu einem Strich (2.2-2.8s)
+                // Phase 3: Tor öffnet sich (2.8-3.8s)
+                
+                var wrapper = document.querySelector('.preloader-wrapper');
+                var preloader = document.getElementById('preloader');
+                var status = document.getElementById('preloader-status');
+                
+                // Phase 2: Nach 2.2s - Komprimieren
                 setTimeout(function() {
-                    var p = document.getElementById('preloader');
-                    var b = document.querySelector('.preloader-bg');
-                    if(p) p.classList.add('loaded');
-                    if(b) b.classList.add('loaded');
-                }, loaderTime);
+                    if(status) status.classList.add('compress');
+                }, 2200);
+                
+                // Phase 3: Nach 2.8s - Tor öffnen
+                setTimeout(function() {
+                    if(wrapper) wrapper.classList.add('reveal');
+                }, 2800);
+                
+                // Cleanup: Nach 3.8s alles entfernen
+                setTimeout(function() {
+                    if(wrapper) wrapper.classList.add('done');
+                }, 3800);
             };
             
             function setTheme(theme) {
