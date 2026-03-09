@@ -61,89 +61,96 @@
     align-items: center;
     justify-content: center;
     gap: 0;
+    height: 200px;
 }
 
-/* Container für die Texte */
-.preloader-position {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-}
-
-/* Hide the original span element */
+/* Hide the original elements */
+.preloader-position,
+.loader,
 .preloader-position span,
 .loader span {
     display: none !important;
 }
 
-/* ASTRA Text */
+/* ASTRA Text - oben */
 #preloader-status::before {
     content: 'ASTRA';
     font-family: 'Oswald', sans-serif;
-    font-size: 90px;
+    font-size: 85px;
     font-weight: 700;
     letter-spacing: 0.2em;
     color: #fff;
     line-height: 1;
+    position: absolute;
+    top: 0;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
     animation: textRevealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
-/* CAPITAL Text */
+/* CAPITAL Text - unten */
 #preloader-status::after {
     content: 'CAPITAL';
     font-family: 'Oswald', sans-serif;
-    font-size: 90px;
+    font-size: 85px;
     font-weight: 700;
     letter-spacing: 0.2em;
     color: #fff;
     line-height: 1;
-    margin-top: 60px;
+    position: absolute;
+    bottom: 0;
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-20px);
     animation: textRevealDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
 }
 
-/* Loading Bar - zwischen den Texten */
-.preloader-position::before {
+/* Loading Bar Container - erzeugt mit Box-Shadow Trick */
+#preloader::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 0;
-    height: 3px;
+    height: 4px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 10px;
-    animation: barExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+    animation: barExpand 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+    z-index: 1;
 }
 
-/* Loading Bar Fill - der rote Teil */
-.preloader-position::after {
+/* Loading Bar Fill - der rote glühende Teil */
+#preloader::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 0;
-    height: 3px;
-    background: var(--primary-color);
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), #ff6b7a, var(--primary-color));
+    background-size: 200% 100%;
     border-radius: 10px;
     box-shadow: 
-        0 0 20px rgba(255, 38, 74, 0.6),
-        0 0 40px rgba(255, 38, 74, 0.4),
-        0 0 60px rgba(255, 38, 74, 0.2);
-    animation: barFillGlow 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+        0 0 15px rgba(255, 38, 74, 0.8),
+        0 0 30px rgba(255, 38, 74, 0.5),
+        0 0 45px rgba(255, 38, 74, 0.3);
+    animation: barFillGlow 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1.1s forwards,
+               shimmer 1.5s linear infinite;
+    z-index: 2;
 }
 
-/* Text erscheint von unten nach oben */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Text erscheint von unten */
 @keyframes textRevealUp {
     0% {
         opacity: 0;
-        transform: translateY(30px);
-        letter-spacing: 0.4em;
+        transform: translateY(20px);
+        letter-spacing: 0.3em;
     }
     100% {
         opacity: 1;
@@ -152,12 +159,12 @@
     }
 }
 
-/* Text erscheint von oben nach unten */
+/* Text erscheint von oben */
 @keyframes textRevealDown {
     0% {
         opacity: 0;
-        transform: translateY(-30px);
-        letter-spacing: 0.4em;
+        transform: translateY(-20px);
+        letter-spacing: 0.3em;
     }
     100% {
         opacity: 1;
@@ -173,34 +180,20 @@
         opacity: 0;
     }
     100% {
-        width: 320px;
+        width: 300px;
         opacity: 1;
     }
 }
 
 /* Bar füllt sich mit Glow */
 @keyframes barFillGlow {
-    0% {
-        width: 0;
-    }
-    15% {
-        width: 50px;
-    }
-    30% {
-        width: 100px;
-    }
-    50% {
-        width: 160px;
-    }
-    70% {
-        width: 240px;
-    }
-    85% {
-        width: 290px;
-    }
-    100% {
-        width: 320px;
-    }
+    0% { width: 0; }
+    10% { width: 30px; }
+    25% { width: 80px; }
+    45% { width: 140px; }
+    65% { width: 200px; }
+    85% { width: 260px; }
+    100% { width: 300px; }
 }
 
 /* Preloader Exit - Epic Fade */
@@ -210,77 +203,44 @@
     visibility: hidden;
 }
 
-#preloader.loaded #preloader-status::before,
-#preloader.loaded #preloader-status::after {
-    animation: textExitUp 0.5s cubic-bezier(0.4, 0, 1, 1) forwards,
-               textExitDown 0.5s cubic-bezier(0.4, 0, 1, 1) forwards;
-}
-
-@keyframes textExitUp {
-    to {
-        opacity: 0;
-        transform: translateY(-20px) scale(0.95);
-    }
-}
-
-@keyframes textExitDown {
-    to {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
-}
-
 /* Mobile adjustments */
 @media only screen and (max-width: 768px) {
+    #preloader-status {
+        height: 150px;
+    }
+    
     #preloader-status::before,
     #preloader-status::after {
-        font-size: 52px;
+        font-size: 50px;
         letter-spacing: 0.15em;
     }
     
-    #preloader-status::after {
-        margin-top: 45px;
-    }
-    
     @keyframes barExpand {
-        0% {
-            width: 0;
-            opacity: 0;
-        }
-        100% {
-            width: 220px;
-            opacity: 1;
-        }
+        100% { width: 200px; }
     }
     
     @keyframes barFillGlow {
-        0% { width: 0; }
-        15% { width: 35px; }
-        30% { width: 70px; }
-        50% { width: 110px; }
-        70% { width: 165px; }
-        85% { width: 200px; }
-        100% { width: 220px; }
+        100% { width: 200px; }
     }
 }
 
 /* Extra small screens */
 @media only screen and (max-width: 400px) {
-    #preloader-status::before,
-    #preloader-status::after {
-        font-size: 38px;
+    #preloader-status {
+        height: 120px;
     }
     
+    #preloader-status::before,
     #preloader-status::after {
-        margin-top: 35px;
+        font-size: 36px;
     }
     
     @keyframes barExpand {
-        100% { width: 160px; }
+        100% { width: 150px; }
     }
     
     @keyframes barFillGlow {
-        100% { width: 160px; }
+        100% { width: 150px; }
     }
 }
 
