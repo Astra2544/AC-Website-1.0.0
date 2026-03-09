@@ -2,36 +2,45 @@
 <html lang="de" data-theme="dark">
 <head>
     <meta charset="utf-8">
-    <title>Astra Ecom - E-Commerce Lösungen | Astra Capital e.U.</title>
-    <meta name="description" content="Astra Ecom - Moderne E-Commerce Lösungen, Online-Shops und digitale Verkaufsstrategien">
+    <title>Astra Ecom - IT Dienstleistungen | Astra Capital e.U.</title>
+    <meta name="description" content="Astra Ecom - Professionelle Softwareentwicklung, Web Ecom und IT-Lösungen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <!-- Styles -->
     <link href="../css/plugins.css" rel="stylesheet">
     <link href="../css/style-dark.css" rel="stylesheet">
     <link href="../css/astra-custom.css" rel="stylesheet">
     <link href="../css/astra-areas.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900|Oswald:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="area-page area-ecom">
     
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
     <!-- Navigation -->
-    <nav class="area-nav" id="navbar">
+    <nav class="area-nav" id="navbar" data-testid="navbar">
         <div class="nav-container">
-            <a href="../index.html" class="nav-logo">
+            <a href="../index.html" class="nav-logo" data-testid="nav-logo">
                 <span class="logo-prefix">ASTRA</span>
                 <span class="logo-name">ECOM</span>
             </a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">Über Uns</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#works">Portfolio</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-                <li><a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Portal</a></li>
+                <li><a href="#home" class="active" data-testid="nav-home">Home</a></li>
+                <li><a href="#about" data-testid="nav-about">Über Uns</a></li>
+                <li><a href="#services" data-testid="nav-services">Services</a></li>
+                <li><a href="#works" data-testid="nav-works">Projekte</a></li>
+                <li><a href="#team" data-testid="nav-team">Team</a></li>
+                <li><a href="#contact" data-testid="nav-contact">Kontakt</a></li>
+                <li><a href="../index.html" class="back-link" data-testid="nav-portal"><i class="fas fa-arrow-left"></i> Portal</a></li>
             </ul>
-            <div class="nav-toggle" id="navToggle">
+            <div class="nav-toggle" id="navToggle" data-testid="nav-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -40,16 +49,22 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="area-hero" id="home">
-        <div class="area-hero-bg" style="background-image: url('../img/background/hero-bg-2.jpg');"></div>
+    <section class="area-hero" id="home" data-testid="hero-section">
+        <div class="area-hero-bg parallax" style="background-image: url('../img/background/hero-bg-1.jpg');"></div>
         <div class="area-hero-overlay"></div>
+        
+        <!-- Floating Shapes -->
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        
         <div class="area-hero-content">
             <div class="area-hero-label">E-Commerce & Online Business</div>
             <h1 class="area-hero-title">ASTRA <span>ECOM</span></h1>
-            <p class="area-hero-subtitle">Wir bauen leistungsstarke Online-Shops und E-Commerce Strategien, die verkaufen. Von der Konzeption bis zum Launch - alles aus einer Hand.</p>
+            <p class="area-hero-subtitle">Wir entwickeln innovative digitale Lösungen, die Ihr Unternehmen in die Zukunft führen. Von Web-Applikationen bis hin zu komplexen Softwaresystemen.</p>
             <div class="area-hero-buttons">
-                <a href="#services" class="btn-area btn-area-filled">Unsere Lösungen</a>
-                <a href="#contact" class="btn-area">Projekt starten</a>
+                <a href="#services" class="btn-area btn-area-filled magnetic" data-testid="hero-cta-services">Unsere Services</a>
+                <a href="#contact" class="btn-area magnetic" data-testid="hero-cta-contact">Kontakt aufnehmen</a>
             </div>
         </div>
         <div class="area-scroll-indicator">
@@ -59,36 +74,37 @@
     </section>
 
     <!-- About Section -->
-    <section class="area-section" id="about">
+    <section class="area-section" id="about" data-testid="about-section">
+        <div class="section-dots top-left"></div>
         <div class="area-container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-number">01</span>
-                <h2 class="section-title">E-Commerce <span>Expertise</span></h2>
+                <h2 class="section-title">Über <span>Uns</span></h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Wir verstehen Online-Handel. Von kleinen Shops bis zu Enterprise-Lösungen - wir liefern Ergebnisse.</p>
+                <p class="section-subtitle">Wir sind ein Team von leidenschaftlichen Entwicklern, die Technologie lieben und Lösungen schaffen, die funktionieren.</p>
             </div>
             
             <div class="about-grid">
-                <div class="about-image">
-                    <img src="../img/about/about-2.jpg" alt="Astra Ecom">
+                <div class="about-image reveal from-left">
+                    <img src="../img/about/about-1.jpg" alt="Astra Ecom Team">
                 </div>
-                <div class="about-content">
-                    <h3>Verkaufen im digitalen Zeitalter</h3>
-                    <p>Der E-Commerce Markt wächst exponentiell. Wir helfen Ihnen, diese Chance zu nutzen mit modernen Online-Shops, die konvertieren und Kunden begeistern.</p>
-                    <p>Unser Team kombiniert technisches Know-how mit Marketing-Expertise, um Shops zu bauen, die nicht nur gut aussehen, sondern auch verkaufen.</p>
+                <div class="about-content reveal from-right">
+                    <h3>Innovation trifft Expertise</h3>
+                    <p>Bei Astra Ecom verbinden wir technisches Know-how mit kreativem Denken. Unser Ziel ist es, digitale Produkte zu schaffen, die nicht nur funktionieren, sondern begeistern.</p>
+                    <p>Mit Jahren an Erfahrung in der Softwareentwicklung verstehen wir die Herausforderungen moderner Unternehmen und bieten <a href="#services">maßgeschneiderte Lösungen</a>.</p>
                     
                     <div class="about-stats">
                         <div class="stat-item">
-                            <div class="stat-number">€2M+</div>
-                            <div class="stat-label">Umsatz generiert</div>
+                            <div class="stat-number" data-count="50">0</div>
+                            <div class="stat-label">Projekte</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">40+</div>
-                            <div class="stat-label">Online-Shops</div>
+                            <div class="stat-number" data-count="30">0</div>
+                            <div class="stat-label">Kunden</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">95%</div>
-                            <div class="stat-label">Kundenbindung</div>
+                            <div class="stat-number" data-count="5">0</div>
+                            <div class="stat-label">Jahre</div>
                         </div>
                     </div>
                 </div>
@@ -97,147 +113,297 @@
     </section>
 
     <!-- Services Section -->
-    <section class="area-section area-section-dark" id="services">
+    <section class="area-section area-section-dark" id="services" data-testid="services-section">
+        <div class="section-dots bottom-right"></div>
         <div class="area-container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-number">02</span>
-                <h2 class="section-title">E-Commerce <span>Services</span></h2>
+                <h2 class="section-title">Unsere <span>Services</span></h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Alles was Sie brauchen, um online erfolgreich zu verkaufen.</p>
+                <p class="section-subtitle">Von der Idee bis zur Umsetzung - wir begleiten Sie auf dem gesamten Weg.</p>
             </div>
             
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <h4>Online-Shop Entwicklung</h4>
-                    <p>Maßgeschneiderte Shops auf Basis von Shopify, WooCommerce oder individuellen Lösungen. Optimiert für Conversion.</p>
+                <div class="service-card reveal" data-testid="service-card-1">
+                    <span class="card-number">01</span>
+                    <div class="service-icon"><i class="fas fa-code"></i></div>
+                    <h4>Web Ecom</h4>
+                    <p>Moderne, responsive Websites und Web-Applikationen mit den neuesten Technologien. Von einfachen Landingpages bis zu komplexen Plattformen.</p>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <h4>Payment Integration</h4>
-                    <p>Alle gängigen Zahlungsmethoden - von Kreditkarte bis Klarna. Sichere und reibungslose Transaktionen.</p>
+                <div class="service-card reveal" data-testid="service-card-2">
+                    <span class="card-number">02</span>
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h4>App Entwicklung</h4>
+                    <p>Native und Cross-Platform Apps für iOS und Android. Benutzerfreundlich, performant und auf Ihre Bedürfnisse zugeschnitten.</p>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <h4>Fulfillment & Logistik</h4>
-                    <p>Integration von Versanddienstleistern, automatisierte Bestellabwicklung und Inventory Management.</p>
+                <div class="service-card reveal" data-testid="service-card-3">
+                    <span class="card-number">03</span>
+                    <div class="service-icon"><i class="fas fa-database"></i></div>
+                    <h4>Backend & APIs</h4>
+                    <p>Robuste Backend-Systeme und APIs, die skalieren. Wir sorgen dafür, dass Ihre Anwendungen zuverlässig laufen.</p>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h4>Conversion Optimierung</h4>
-                    <p>A/B Testing, UX-Analyse und kontinuierliche Verbesserung Ihrer Conversion Rate.</p>
+                <div class="service-card reveal" data-testid="service-card-4">
+                    <span class="card-number">04</span>
+                    <div class="service-icon"><i class="fas fa-cloud"></i></div>
+                    <h4>Cloud Solutions</h4>
+                    <p>Cloud-native Architekturen und DevOps. Wir helfen Ihnen, die Vorteile der Cloud voll auszuschöpfen.</p>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h4>E-Commerce Marketing</h4>
-                    <p>SEO, Google Ads, Social Media Marketing und E-Mail Kampagnen für Ihren Shop.</p>
+                <div class="service-card reveal" data-testid="service-card-5">
+                    <span class="card-number">05</span>
+                    <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>IT Security</h4>
+                    <p>Sicherheitsanalysen und Implementierung von Best Practices. Schützen Sie Ihre digitalen Assets.</p>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h4>Support & Wartung</h4>
-                    <p>Laufende Betreuung, Updates und technischer Support für Ihren Online-Shop.</p>
+                <div class="service-card reveal" data-testid="service-card-6">
+                    <span class="card-number">06</span>
+                    <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                    <h4>IT Consulting</h4>
+                    <p>Strategische Beratung für Ihre IT-Infrastruktur. Wir helfen Ihnen, die richtigen Entscheidungen zu treffen.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Facts Section -->
-    <section class="facts-section" style="background-image: url('../img/background-blackex/parallax-bg.jpg');">
+    <section class="facts-section" style="background-image: url('../img/background-blackex/parallax-facts-bg.jpg');" data-testid="facts-section">
         <div class="facts-overlay"></div>
         <div class="area-container">
             <div class="facts-grid">
-                <div class="fact-item">
-                    <div class="fact-number">500K+</div>
+                <div class="fact-item reveal">
+                    <div class="fact-number" data-count="150">0</div>
                     <div class="fact-line"></div>
-                    <div class="fact-label">Bestellungen</div>
+                    <div class="fact-label">Tausend Zeilen Code</div>
                 </div>
-                <div class="fact-item">
-                    <div class="fact-number">35%</div>
+                <div class="fact-item reveal">
+                    <div class="fact-number">99.9%</div>
                     <div class="fact-line"></div>
-                    <div class="fact-label">Avg. Conversion</div>
+                    <div class="fact-label">Uptime</div>
                 </div>
-                <div class="fact-item">
-                    <div class="fact-number">4.9★</div>
+                <div class="fact-item reveal">
+                    <div class="fact-number">24/7</div>
                     <div class="fact-line"></div>
-                    <div class="fact-label">Kundenbewertung</div>
+                    <div class="fact-label">Support</div>
                 </div>
-                <div class="fact-item">
-                    <div class="fact-number">15+</div>
+                <div class="fact-item reveal">
+                    <div class="fact-number">100%</div>
                     <div class="fact-line"></div>
-                    <div class="fact-label">Länder</div>
+                    <div class="fact-label">Zufriedenheit</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Works/Portfolio Section -->
-    <section class="area-section" id="works">
+    <section class="area-section" id="works" data-testid="works-section">
         <div class="area-container area-container-wide">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-number">03</span>
-                <h2 class="section-title">Shop <span>Portfolio</span></h2>
+                <h2 class="section-title">Unsere <span>Projekte</span></h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Erfolgreiche Online-Shops, die wir realisiert haben.</p>
+                <p class="section-subtitle">Ein Auszug aus unseren erfolgreich umgesetzten Projekten.</p>
             </div>
             
-            <div class="works-grid">
-                <div class="work-item">
-                    <img src="../img/works/works-1.jpg" alt="Fashion Shop">
+            <div class="works-grid masonry">
+                <div class="work-item reveal" data-testid="work-item-1">
+                    <img src="../img/works/works-1.jpg" alt="E-Commerce Platform">
                     <div class="work-overlay">
-                        <h4>Fashion Boutique</h4>
-                        <span>Shopify</span>
+                        <h4>E-Commerce Platform</h4>
+                        <span>Web Ecom</span>
+                        <div class="view-icon"><i class="fas fa-plus"></i></div>
                     </div>
                 </div>
-                <div class="work-item">
-                    <img src="../img/works/works-2.jpg" alt="Electronics Store">
+                <div class="work-item reveal" data-testid="work-item-2">
+                    <img src="../img/works/works-2.jpg" alt="Mobile Banking App">
                     <div class="work-overlay">
-                        <h4>Tech Store</h4>
-                        <span>WooCommerce</span>
+                        <h4>Mobile Banking App</h4>
+                        <span>App Ecom</span>
+                        <div class="view-icon"><i class="fas fa-plus"></i></div>
                     </div>
                 </div>
-                <div class="work-item">
-                    <img src="../img/works/works-3.jpg" alt="Food Shop">
+                <div class="work-item reveal" data-testid="work-item-3">
+                    <img src="../img/works/works-3.jpg" alt="Cloud Migration">
                     <div class="work-overlay">
-                        <h4>Gourmet Foods</h4>
-                        <span>Custom Build</span>
+                        <h4>Cloud Migration</h4>
+                        <span>Cloud Solutions</span>
+                        <div class="view-icon"><i class="fas fa-plus"></i></div>
                     </div>
                 </div>
-                <div class="work-item">
-                    <img src="../img/works/works-4.jpg" alt="Beauty Shop">
+                <div class="work-item reveal" data-testid="work-item-4">
+                    <img src="../img/works/works-4.jpg" alt="Dashboard System">
                     <div class="work-overlay">
-                        <h4>Beauty & Wellness</h4>
-                        <span>Shopify Plus</span>
+                        <h4>Dashboard System</h4>
+                        <span>Full Stack</span>
+                        <div class="view-icon"><i class="fas fa-plus"></i></div>
                     </div>
                 </div>
-                <div class="work-item">
-                    <img src="../img/works/works-5.jpg" alt="Sports Shop">
+                <div class="work-item reveal" data-testid="work-item-5">
+                    <img src="../img/works/works-5.jpg" alt="API Integration">
                     <div class="work-overlay">
-                        <h4>Sports Equipment</h4>
-                        <span>Magento</span>
+                        <h4>API Integration</h4>
+                        <span>Backend</span>
+                        <div class="view-icon"><i class="fas fa-plus"></i></div>
                     </div>
                 </div>
-                <div class="work-item">
-                    <img src="../img/works/works-6.jpg" alt="Home Decor">
+                <div class="work-item reveal" data-testid="work-item-6">
+                    <img src="../img/works/works-6.jpg" alt="Security Audit">
                     <div class="work-overlay">
-                        <h4>Home & Living</h4>
-                        <span>WooCommerce</span>
+                        <h4>Security Audit</h4>
+                        <span>IT Security</span>
+                        <div class="view-icon"><i class="fas fa-plus"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="area-section area-section-dark testimonials-section" data-testid="testimonials-section">
+        <div class="area-container">
+            <div class="section-header reveal">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Was Kunden <span>sagen</span></h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="testimonial-slider reveal">
+                <div class="testimonial-item">
+                    <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                    <p class="testimonial-text">"Astra Ecom hat unsere Vision perfekt umgesetzt. Die Zusammenarbeit war professionell, transparent und das Ergebnis übertrifft unsere Erwartungen."</p>
+                    <div class="testimonial-author">Michael Schmidt</div>
+                    <div class="testimonial-role">CEO, TechStart GmbH</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="area-section" id="team" data-testid="team-section">
+        <div class="area-container">
+            <div class="section-header reveal">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Unser <span>Team</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Die Menschen hinter Astra Ecom.</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-card reveal" data-testid="team-card-1">
+                    <div class="team-image">
+                        <img src="../img/team/team-1.jpg" alt="Team Member">
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>Max Mustermann</h4>
+                        <span>Lead Developer</span>
+                    </div>
+                </div>
+                <div class="team-card reveal" data-testid="team-card-2">
+                    <div class="team-image">
+                        <img src="../img/team/team-2.jpg" alt="Team Member">
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>Anna Schmidt</h4>
+                        <span>UI/UX Designer</span>
+                    </div>
+                </div>
+                <div class="team-card reveal" data-testid="team-card-3">
+                    <div class="team-image">
+                        <img src="../img/team/team-3.jpg" alt="Team Member">
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>Thomas Weber</h4>
+                        <span>Backend Engineer</span>
+                    </div>
+                </div>
+                <div class="team-card reveal" data-testid="team-card-4">
+                    <div class="team-image">
+                        <img src="../img/team/team-4.jpg" alt="Team Member">
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h4>Julia Fischer</h4>
+                        <span>Project Manager</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section area-section-dark" data-testid="cta-section">
+        <div class="area-container">
+            <div class="reveal">
+                <h2 class="cta-title">Bereit für Ihr <span>Projekt</span>?</h2>
+                <p class="cta-text">Lassen Sie uns gemeinsam etwas Großartiges erschaffen. Kontaktieren Sie uns für ein unverbindliches Erstgespräch.</p>
+                <a href="#contact" class="btn-area btn-area-filled magnetic" data-testid="cta-button">Jetzt starten</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="area-section" data-testid="news-section">
+        <div class="area-container">
+            <div class="section-header reveal">
+                <span class="section-number">06</span>
+                <h2 class="section-title">Aktuelles & <span>News</span></h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Bleiben Sie auf dem Laufenden mit unseren neuesten Beiträgen.</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card reveal" data-testid="news-card-1">
+                    <div class="news-image">
+                        <img src="../img/news/news-1.jpg" alt="News">
+                        <div class="news-date">15 Jan 2024</div>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-category">Ecom</div>
+                        <h4>Die Zukunft von Web Ecom: Trends 2024</h4>
+                        <p>Ein Überblick über die wichtigsten Technologie-Trends, die das Web Ecom in diesem Jahr prägen werden.</p>
+                        <a href="#" class="news-link">Weiterlesen <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card reveal" data-testid="news-card-2">
+                    <div class="news-image">
+                        <img src="../img/news/news-2.jpg" alt="News">
+                        <div class="news-date">10 Jan 2024</div>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-category">Case Study</div>
+                        <h4>Erfolgreiche Cloud-Migration für TechStart</h4>
+                        <p>Wie wir TechStart dabei geholfen haben, ihre Infrastruktur erfolgreich in die Cloud zu migrieren.</p>
+                        <a href="#" class="news-link">Weiterlesen <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="news-card reveal" data-testid="news-card-3">
+                    <div class="news-image">
+                        <img src="../img/news/news-3.jpg" alt="News">
+                        <div class="news-date">05 Jan 2024</div>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-category">Team</div>
+                        <h4>Unser Team wächst: Neue Talente an Bord</h4>
+                        <p>Wir freuen uns, zwei neue Teammitglieder begrüßen zu dürfen, die unser Ecom-Team verstärken.</p>
+                        <a href="#" class="news-link">Weiterlesen <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -245,43 +411,37 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="area-section area-section-dark" id="contact">
+    <section class="area-section area-section-dark" id="contact" data-testid="contact-section">
         <div class="area-container">
-            <div class="section-header">
-                <span class="section-number">04</span>
-                <h2 class="section-title">Shop <span>starten</span></h2>
+            <div class="section-header reveal">
+                <span class="section-number">07</span>
+                <h2 class="section-title">Kontakt <span>aufnehmen</span></h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">Bereit für Ihren Online-Shop? Lassen Sie uns loslegen.</p>
+                <p class="section-subtitle">Lassen Sie uns über Ihr nächstes Projekt sprechen.</p>
             </div>
             
             <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Ihr E-Commerce Partner</h3>
-                    <p>Von der ersten Idee bis zum erfolgreichen Online-Business - wir begleiten Sie auf dem gesamten Weg und darüber hinaus.</p>
+                <div class="contact-info reveal from-left">
+                    <h3>Starten wir gemeinsam</h3>
+                    <p>Haben Sie eine Idee oder ein Projekt im Kopf? Wir freuen uns darauf, von Ihnen zu hören und gemeinsam etwas Großartiges zu schaffen.</p>
                     
                     <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-item-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
+                        <div class="contact-item" data-testid="contact-email">
+                            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
                             <div class="contact-item-text">
                                 <strong>Email</strong>
                                 ecom@astra-capital.at
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-item-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
+                        <div class="contact-item" data-testid="contact-phone">
+                            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
                             <div class="contact-item-text">
                                 <strong>Telefon</strong>
                                 +43 1 234 5679
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-item-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
+                        <div class="contact-item" data-testid="contact-address">
+                            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="contact-item-text">
                                 <strong>Adresse</strong>
                                 Wien, Österreich
@@ -290,13 +450,15 @@
                     </div>
                 </div>
                 
-                <div class="contact-form-wrapper">
-                    <form class="contact-form">
-                        <input type="text" placeholder="Ihr Name" required>
-                        <input type="email" placeholder="Ihre Email" required>
-                        <input type="text" placeholder="Shop-Typ / Branche">
-                        <textarea placeholder="Erzählen Sie uns von Ihrem Projekt" required></textarea>
-                        <button type="submit" class="btn-area btn-area-filled">Anfrage senden</button>
+                <div class="contact-form-wrapper reveal from-right">
+                    <form class="contact-form" data-testid="contact-form">
+                        <div class="form-row">
+                            <input type="text" placeholder="Ihr Name" required data-testid="input-name">
+                            <input type="email" placeholder="Ihre Email" required data-testid="input-email">
+                        </div>
+                        <input type="text" placeholder="Betreff" data-testid="input-subject">
+                        <textarea placeholder="Ihre Nachricht" required data-testid="input-message"></textarea>
+                        <button type="submit" class="btn-area btn-area-filled" data-testid="submit-button">Nachricht senden</button>
                     </form>
                 </div>
             </div>
@@ -304,12 +466,16 @@
     </section>
 
     <!-- Footer -->
-    <footer class="area-footer">
+    <footer class="area-footer" data-testid="footer">
         <div class="area-container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <h3>ASTRA <span>ECOM</span></h3>
-                    <p>E-Commerce Lösungen für nachhaltigen Online-Erfolg. Wir bauen Shops, die verkaufen.</p>
+                    <p>Innovative IT-Lösungen für moderne Unternehmen. Wir bringen Ihre digitale Vision zum Leben.</p>
+                    <div class="footer-newsletter">
+                        <input type="email" placeholder="Ihre Email für Updates">
+                        <button type="button">OK</button>
+                    </div>
                 </div>
                 <div class="footer-col">
                     <h4 class="footer-title">Navigation</h4>
@@ -317,25 +483,27 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">Über Uns</a></li>
                         <li><a href="#services">Services</a></li>
-                        <li><a href="#works">Portfolio</a></li>
+                        <li><a href="#works">Projekte</a></li>
+                        <li><a href="#team">Team</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4 class="footer-title">Plattformen</h4>
+                    <h4 class="footer-title">Services</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Shopify</a></li>
-                        <li><a href="#">WooCommerce</a></li>
-                        <li><a href="#">Magento</a></li>
-                        <li><a href="#">Custom Solutions</a></li>
+                        <li><a href="#">Web Ecom</a></li>
+                        <li><a href="#">App Ecom</a></li>
+                        <li><a href="#">Cloud Solutions</a></li>
+                        <li><a href="#">IT Consulting</a></li>
+                        <li><a href="#">IT Security</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4 class="footer-title">Astra Capital</h4>
                     <ul class="footer-links">
                         <li><a href="../index.html">Hauptportal</a></li>
-                        <li><a href="development.html">Astra Development</a></li>
-                        <li><a href="#">Astra Consulting</a></li>
-                        <li><a href="#">Astra Vending</a></li>
+                        <li><a href="ecom.html">Astra Ecom</a></li>
+                        <li><a href="consulting.html">Astra Consulting</a></li>
+                        <li><a href="vending.html">Astra Vending</a></li>
                     </ul>
                 </div>
             </div>
@@ -344,72 +512,102 @@
                     © 2024 Astra Capital e.U. Alle Rechte vorbehalten.
                 </div>
                 <div class="footer-social">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" data-testid="social-linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" data-testid="social-github"><i class="fab fa-github"></i></a>
+                    <a href="#" data-testid="social-instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top -->
-    <div class="back-to-top" id="backToTop">
+    <div class="back-to-top" id="backToTop" data-testid="back-to-top">
         <i class="fas fa-arrow-up"></i>
     </div>
 
     <!-- Scripts -->
     <script src="../js/plugins.js"></script>
     <script>
+        // Page Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('pageLoader').classList.add('loaded');
+            }, 500);
+        });
+
+        // Custom Cursor
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        
+        if (window.innerWidth > 992) {
+            document.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+                cursorRing.style.left = e.clientX - 16 + 'px';
+                cursorRing.style.top = e.clientY - 16 + 'px';
+            });
+            
+            document.querySelectorAll('a, button, .service-card, .work-item').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+            });
+        } else {
+            cursorDot.style.display = 'none';
+            cursorRing.style.display = 'none';
+        }
+
         // Mobile Navigation Toggle
         const navToggle = document.getElementById('navToggle');
         const navMenu = document.getElementById('navMenu');
         
         navToggle.addEventListener('click', () => {
             navMenu.classList.toggle('open');
+            navToggle.classList.toggle('active');
         });
         
+        // Close menu on link click
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                navToggle.classList.remove('active');
+            });
+        });
+
         // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 100);
         });
-        
+
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    navMenu.classList.remove('open');
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
             });
         });
-        
+
         // Back to Top Button
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
+            backToTop.classList.toggle('visible', window.scrollY > 500);
         });
         
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-        
+
         // Active Nav Link
         const sections = document.querySelectorAll('section[id]');
         window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
+            const scrollY = window.scrollY + 150;
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
+                const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
                 const sectionId = section.getAttribute('id');
                 
@@ -422,6 +620,74 @@
                     });
                 }
             });
+        });
+
+        // Reveal on Scroll
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const revealTop = el.getBoundingClientRect().top;
+                const revealPoint = 150;
+                
+                if (revealTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Counter Animation
+        const counters = document.querySelectorAll('[data-count]');
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const current = parseInt(counter.innerText);
+                const increment = target / 50;
+                
+                if (current < target) {
+                    counter.innerText = Math.ceil(current + increment);
+                    setTimeout(() => animateCounters(), 30);
+                } else {
+                    counter.innerText = target + '+';
+                }
+            });
+        };
+        
+        // Trigger counter animation when in view
+        const statsSection = document.querySelector('.about-stats');
+        if (statsSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            observer.observe(statsSection);
+        }
+
+        // Magnetic Button Effect
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Form Submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Vielen Dank für Ihre Nachricht! Wir werden uns schnellstmöglich bei Ihnen melden.');
         });
     </script>
 </body>
