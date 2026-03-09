@@ -60,23 +60,23 @@
 
 .preloader-top {
     top: 0;
-    border-bottom: 2px solid var(--primary-color);
-    box-shadow: 0 2px 20px rgba(255, 38, 74, 0.5);
 }
 
 .preloader-bottom {
     bottom: 0;
-    border-top: 2px solid var(--primary-color);
-    box-shadow: 0 -2px 20px rgba(255, 38, 74, 0.5);
 }
 
-/* Tor öffnet sich */
+/* Roter Rand erscheint erst beim Öffnen */
 .preloader-wrapper.reveal .preloader-top {
     transform: translateY(-100%);
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 0 2px 20px rgba(255, 38, 74, 0.5);
 }
 
 .preloader-wrapper.reveal .preloader-bottom {
     transform: translateY(100%);
+    border-top: 2px solid var(--primary-color);
+    box-shadow: 0 -2px 20px rgba(255, 38, 74, 0.5);
 }
 
 /* Haupt-Preloader Container */
