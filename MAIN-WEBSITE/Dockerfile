@@ -1,5 +1,5 @@
 # Astra Capital e.U. - Docker Setup
-# Statische Website - Nginx läuft extern
+# Statische Website mit Nginx + API Proxy
 
 FROM nginx:alpine
 
@@ -7,9 +7,23 @@ LABEL maintainer="Astra Capital e.U."
 
 WORKDIR /usr/share/nginx/html
 
-# Entferne Standard-Seite und kopiere Website
-RUN rm -rf /usr/share/nginx/html/*
-COPY . /usr/share/nginx/html/
+# Entferne Standard-Seite und Standard-Config
+RUN rm -rf /usr/share/nginx/html/* && \
+    rm /etc/nginx/conf.d/default.conf
+
+# Kopiere Custom Nginx Config
+COPY docker/default.conf /etc/nginx/conf.d/default.conf
+
+# Kopiere Website (ohne backend und docker Ordner)
+COPY index.html .
+COPY 404.html .
+COPY 50x.html .
+COPY contact.php .
+COPY css/ css/
+COPY js/ js/
+COPY img/ img/
+COPY fonts/ fonts/
+COPY pages/ pages/
 
 # Berechtigungen
 RUN chmod -R 755 /usr/share/nginx/html && \

@@ -1,28 +1,72 @@
 # Astra Capital e.U. - Docker Compose
+# Frontend (Nginx) + Backend (FastAPI)
 
 version: '3.8'
 
 services:
+  # Frontend - Static Website with Nginx
   astra-website:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     container_name: ${CONTAINER_NAME:-astra-capital-website}
     restart: unless-stopped
     ports:
-      - "${PORT:-8080}:80"
+      - "${WEBSITE_PORT:-8080}:80"
     environment:
       - CONTAINER_NAME=${CONTAINER_NAME:-astra-capital-website}
-      - PORT=${PORT:-8080}
+      - WEBSITE_PORT=${WEBSITE_PORT:-8080}
       - DOMAIN=${DOMAIN:-astra-capital.eu}
       - TZ=${TZ:-Europe/Vienna}
       - CONTACT_EMAIL=${CONTACT_EMAIL:-info@astra-capital.at}
     volumes:
-      - ./logs:/var/log/nginx
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - astra-backend
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
       interval: 30s
       timeout: 10s
       retries: 3
+    networks:
+      - astra-network
 
+  # Backend - FastAPI Server
+  astra-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME:-astra-capital}-backend
+    restart: unless-stopped
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      - API_PORT=${API_PORT:-8000}
+      - DOMAIN=${DOMAIN:-astra-capital.eu}
+      - CONTACT_EMAIL=${CONTACT_EMAIL:-info@astra-capital.at}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - TZ=${TZ:-Europe/Vienna}
+    volumes:
+      - backend-data:/app/data
+      - ./logs/backend:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - astra-network
+
+# Named volumes for persistent data
+volumes:
+  backend-data:
+    name: astra-backend-data
+
+# Network
 networks:
-  default:
+  astra-network:
     name: astra-network
+    driver: bridge

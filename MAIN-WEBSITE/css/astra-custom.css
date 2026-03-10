@@ -545,23 +545,45 @@
 .coming-soon-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     color: var(--primary-color);
     font-family: 'Raleway', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    padding: 15px 25px;
+    border: 1px solid rgba(255, 38, 74, 0.3);
+    border-radius: 50px;
+    background: rgba(255, 38, 74, 0.05);
+    backdrop-filter: blur(10px);
+    animation: pulseGlow 2s ease-in-out infinite;
 }
 
-.coming-soon-badge::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    animation: blink 1.5s ease-in-out infinite;
+.coming-soon-badge .badge-icon {
+    display: flex;
+    align-items: center;
+    animation: spin 10s linear infinite;
+}
+
+.coming-soon-badge .badge-icon svg {
+    stroke: var(--primary-color);
+}
+
+@keyframes pulseGlow {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(255, 38, 74, 0.1);
+        border-color: rgba(255, 38, 74, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 30px rgba(255, 38, 74, 0.25);
+        border-color: rgba(255, 38, 74, 0.5);
+    }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 @keyframes blink {
@@ -580,23 +602,67 @@
     opacity: 0.6 !important;
 }
 
-.coming-soon-link {
-    opacity: 0.5 !important;
+/* Navigation Coming Soon */
+.nav-coming-soon {
     position: relative;
 }
 
-.coming-soon-link::after {
-    content: '· bald';
-    margin-left: 8px;
-    font-size: 9px;
-    color: var(--primary-color);
-    text-transform: lowercase;
-    letter-spacing: 0.05em;
+.coming-soon-link {
+    opacity: 0.5 !important;
+    position: relative;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+.nav-coming-soon .nav-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.nav-coming-soon .nav-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: var(--primary-color);
+}
+
+.nav-coming-soon:hover .nav-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(10px);
+}
+
+.nav-coming-soon:hover .coming-soon-link {
+    pointer-events: auto;
 }
 
 @media only screen and (max-width: 995px) {
-    .coming-soon-link::after {
+    .nav-coming-soon .nav-tooltip {
         display: none;
+    }
+    
+    .coming-soon-link::after {
+        content: ' (bald)';
+        font-size: 9px;
+        color: var(--primary-color);
     }
 }
 
@@ -773,4 +839,101 @@
 ::selection {
     background: var(--primary-color);
     color: #fff;
+}
+
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+.astra-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    padding: 18px 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 99999;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 400px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.astra-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.astra-toast-success {
+    border-left: 4px solid #00ff88;
+}
+
+.astra-toast-success .toast-icon {
+    color: #00ff88;
+}
+
+.astra-toast-error {
+    border-left: 4px solid var(--primary-color);
+}
+
+.astra-toast-error .toast-icon {
+    color: var(--primary-color);
+}
+
+.toast-icon {
+    flex-shrink: 0;
+}
+
+.toast-message {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.toast-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+}
+
+.toast-close:hover {
+    color: #fff;
+}
+
+/* Button Loading Spinner */
+.btn-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btnSpin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes btnSpin {
+    to { transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 600px) {
+    .astra-toast {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
 }

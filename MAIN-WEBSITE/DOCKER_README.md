@@ -1,4 +1,4 @@
-# 🚀 Astra Capital e.U. - Docker Deployment
+# Astra Capital e.U. - Docker Deployment
 
 ## Schnellstart
 
@@ -9,7 +9,7 @@ cd /pfad/zu/MAIN-WEBSITE
 # 2. Environment Datei erstellen
 cp .env.example .env
 
-# 3. .env anpassen (Domain, Port, etc.)
+# 3. .env anpassen (Domain, E-Mail, SMTP etc.)
 nano .env
 
 # 4. Docker Container starten
@@ -19,151 +19,218 @@ docker-compose up -d --build
 docker-compose ps
 ```
 
+## Services
+
+| Service | Container | Port | Beschreibung |
+|---------|-----------|------|--------------|
+| `astra-website` | Nginx Alpine | 8080 | Frontend + API Proxy |
+| `astra-backend` | Python FastAPI | 8000 | Backend API |
+
 ## Dateien
 
 | Datei | Beschreibung |
 |-------|-------------|
-| `Dockerfile` | Docker Image Definition |
+| `Dockerfile` | Frontend Image (Nginx) |
+| `backend/Dockerfile` | Backend Image (Python) |
 | `docker-compose.yml` | Container Orchestrierung |
+| `docker/default.conf` | Nginx Config mit API Proxy |
 | `.env.example` | Beispiel Umgebungsvariablen |
 | `.env` | Deine Umgebungsvariablen (erstellen!) |
-| `docker/nginx.conf` | Nginx Hauptkonfiguration |
-| `docker/default.conf` | Nginx Server Block |
-| `NGINX_REVERSE_PROXY_PROMPT.md` | Prompt für externen Nginx |
 
-## Umgebungsvariablen (.env)
+## Environment Variables (.env)
 
 ```env
 # Container
-CONTAINER_NAME=astra-capital-website
+CONTAINER_NAME=astra-capital
+
+# Ports
 WEBSITE_PORT=8080
-TIMEZONE=Europe/Vienna
+API_PORT=8000
 
 # Domain
-DOMAIN=astra-capital.at
+DOMAIN=astra-capital.eu
 
-# Ressourcen
-CPU_LIMIT=0.5
-MEMORY_LIMIT=256M
+# Kontakt
+CONTACT_EMAIL=info@astra-capital.at
 
-# Pfade
-LOG_PATH=./logs
-NETWORK_NAME=astra-network
+# Timezone
+TZ=Europe/Vienna
+
+# SMTP (optional - für E-Mail Benachrichtigungen)
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASS=
 ```
 
 ## Befehle
 
 ```bash
-# Container starten
+# Alle Container starten
 docker-compose up -d
+
+# Mit Rebuild
+docker-compose up -d --build
 
 # Container stoppen
 docker-compose down
 
-# Logs anzeigen
+# Logs anzeigen (alle)
 docker-compose logs -f
 
-# Container neu bauen
-docker-compose up -d --build --force-recreate
+# Nur Backend Logs
+docker-compose logs -f astra-backend
+
+# Nur Frontend Logs
+docker-compose logs -f astra-website
 
 # Status prüfen
 docker-compose ps
 
-# In Container Shell
+# In Container Shell (Backend)
+docker exec -it astra-capital-backend /bin/sh
+
+# In Container Shell (Frontend)
 docker exec -it astra-capital-website /bin/sh
 
-# Health Check
+# Health Check Frontend
 curl http://localhost:8080/health
+
+# Health Check Backend direkt
+curl http://localhost:8000/health
+
+# API Test
+curl http://localhost:8080/api/info
 ```
 
 ## Architektur
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    INTERNET                              │
-└─────────────────────┬───────────────────────────────────┘
-                      │
-                      ▼
-┌─────────────────────────────────────────────────────────┐
-│              EXTERNER NGINX (Port 80/443)               │
-│         SSL Termination, Reverse Proxy                   │
-└─────────────────────┬───────────────────────────────────┘
-                      │
-                      ▼ Port 8080
-┌─────────────────────────────────────────────────────────┐
-│              DOCKER CONTAINER (Nginx Alpine)            │
-│                                                          │
-│  ┌─────────────────────────────────────────────────┐    │
-│  │            Astra Capital Website                 │    │
-│  │                                                  │    │
-│  │  • index.html (Portal)                          │    │
-│  │  • pages/development.html                       │    │
-│  │  • pages/ecom.html                              │    │
-│  │  • pages/consulting.html                        │    │
-│  │  • pages/vending.html                           │    │
-│  │  • css/, js/, img/                              │    │
-│  └─────────────────────────────────────────────────┘    │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                      INTERNET                                │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│         EXTERNER NGINX (Port 80/443)                         │
+│              SSL Termination                                 │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          ▼ Port 8080
+┌─────────────────────────────────────────────────────────────┐
+│                  DOCKER COMPOSE                              │
+│                                                              │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            astra-website (Nginx)                     │    │
+│  │                Port 80 → 8080                        │    │
+│  │                                                      │    │
+│  │    /           → Static Files (HTML, CSS, JS)       │    │
+│  │    /api/*      → Proxy zu astra-backend:8000        │    │
+│  │    /health     → Proxy zu astra-backend:8000        │    │
+│  └───────────────────────┬─────────────────────────────┘    │
+│                          │                                   │
+│                          ▼                                   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            astra-backend (FastAPI)                   │    │
+│  │                Port 8000                             │    │
+│  │                                                      │    │
+│  │    /health         → Health Check                   │    │
+│  │    /api/contact    → Kontaktformular                │    │
+│  │    /api/newsletter → Newsletter Signup              │    │
+│  │    /api/stats      → Statistiken                    │    │
+│  └───────────────────────┬─────────────────────────────┘    │
+│                          │                                   │
+│                          ▼                                   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            backend-data (Docker Volume)              │    │
+│  │                                                      │    │
+│  │    contacts.json     → Kontaktanfragen              │    │
+│  │    newsletter.json   → Newsletter Abos              │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Externer Nginx Setup
+## API Endpunkte
 
-Siehe `NGINX_REVERSE_PROXY_PROMPT.md` für einen vollständigen Prompt, den du einer anderen KI geben kannst, um die Nginx Konfiguration auf deinem Server zu erstellen.
+### Health Check
+```bash
+curl http://localhost:8080/health
+```
 
-### Kurzfassung:
+### Kontaktformular testen
+```bash
+curl -X POST http://localhost:8080/api/contact \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Test User",
+    "email": "test@example.com",
+    "subject": "Testanfrage",
+    "message": "Dies ist eine Testnachricht",
+    "area": "development"
+  }'
+```
 
-1. Kopiere den Prompt aus `NGINX_REVERSE_PROXY_PROMPT.md`
-2. Ersetze die Platzhalter:
-   - `{{DEINE_DOMAIN}}` → `astra-capital.at`
-   - `{{SSL_CERT_PATH}}` → Pfad zum SSL Zertifikat
-   - `{{SSL_KEY_PATH}}` → Pfad zum Private Key
-   - `{{BACKEND_PORT}}` → `8080` (oder dein WEBSITE_PORT)
-   - `{{BACKEND_HOST}}` → `127.0.0.1`
+### Newsletter testen
+```bash
+curl -X POST http://localhost:8080/api/newsletter \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test@example.com",
+    "name": "Test"
+  }'
+```
 
-3. Die KI erstellt die Nginx Config unter `/etc/nginx/sites-available/`
+### Statistiken abrufen
+```bash
+curl http://localhost:8080/api/stats
+```
 
 ## Troubleshooting
 
 ### Container startet nicht
 ```bash
 # Logs prüfen
+docker-compose logs astra-backend
 docker-compose logs astra-website
 
 # Konfiguration validieren
 docker-compose config
 ```
 
-### Website nicht erreichbar
+### API nicht erreichbar
 ```bash
-# Port prüfen
-netstat -tlnp | grep 8080
+# Backend direkt testen
+curl http://localhost:8000/health
 
-# Health Check
-curl -v http://localhost:8080/health
+# Nginx Logs prüfen
+docker-compose logs astra-website
 
-# Nginx Logs im Container
-docker exec -it astra-capital-website cat /var/log/nginx/error.log
+# Nginx Config im Container prüfen
+docker exec -it astra-capital-website cat /etc/nginx/conf.d/default.conf
 ```
 
-### Nginx Konfiguration testen
+### Daten sichern
 ```bash
-docker exec -it astra-capital-website nginx -t
+# Volume Backup
+docker run --rm -v astra-backend-data:/data -v $(pwd):/backup alpine \
+  tar -czvf /backup/backend-data-backup.tar.gz /data
 ```
 
 ## Updates
 
 ```bash
-# Neue Website-Dateien kopieren und neu bauen
+# Neuen Code ziehen und neu bauen
+git pull
 docker-compose up -d --build --force-recreate
 ```
 
-## Backup
+## Volumes löschen (Vorsicht!)
 
 ```bash
-# Website-Dateien sichern
-tar -czvf astra-backup-$(date +%Y%m%d).tar.gz MAIN-WEBSITE/
+# Container stoppen
+docker-compose down
 
-# Docker Volume sichern (Logs)
-docker run --rm -v astra-logs:/data -v $(pwd):/backup alpine tar -czvf /backup/logs-backup.tar.gz /data
+# Volumes löschen (ALLE DATEN GEHEN VERLOREN)
+docker-compose down -v
 ```
