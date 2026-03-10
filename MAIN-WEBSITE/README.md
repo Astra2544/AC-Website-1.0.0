@@ -15,38 +15,42 @@ Dies ist die offizielle Website von **Astra Capital e.U.** - eine moderne, profe
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              NGINX REVERSE PROXY (extern)                    │
-│                Port 80/443 + SSL                             │
-└──────────────────┬──────────────────────────────────────────┘
-                   │
-                   ▼ Port 8080
+│         DEIN EXTERNER NGINX (Port 80/443)                    │
+│              SSL + Static Files + API Proxy                  │
+│                                                              │
+│    /           → Static Files (MAIN-WEBSITE/*)              │
+│    /api/*      → Proxy zu localhost:8000                    │
+│    /health     → Proxy zu localhost:8000                    │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          ▼ Port 8000
 ┌─────────────────────────────────────────────────────────────┐
-│                    DOCKER COMPOSE                            │
-│  ┌───────────────────────┐    ┌────────────────────────┐    │
-│  │   astra-website       │    │   astra-backend        │    │
-│  │   (Nginx Alpine)      │◄──►│   (Python FastAPI)     │    │
-│  │   Port 80 → 8080      │    │   Port 8000            │    │
-│  │                       │    │                        │    │
-│  │   - index.html        │    │   - /api/contact       │    │
-│  │   - pages/*           │    │   - /api/newsletter    │    │
-│  │   - /api/* → proxy    │    │   - /api/stats         │    │
-│  └───────────────────────┘    └────────────────────────┘    │
-│                                          │                   │
-│                                          ▼                   │
-│                               ┌────────────────────────┐    │
-│                               │   backend-data         │    │
-│                               │   (Docker Volume)      │    │
-│                               │   - contacts.json      │    │
-│                               │   - newsletter.json    │    │
-│                               └────────────────────────┘    │
+│                  DOCKER COMPOSE                              │
+│                                                              │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            astra-backend (FastAPI)                   │    │
+│  │                Port 8000                             │    │
+│  │                                                      │    │
+│  │    /health         → Health Check                   │    │
+│  │    /api/contact    → Kontaktformular                │    │
+│  │    /api/newsletter → Newsletter Signup              │    │
+│  │    /api/stats      → Statistiken                    │    │
+│  └───────────────────────┬─────────────────────────────┘    │
+│                          │                                   │
+│                          ▼                                   │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            backend-data (Docker Volume)              │    │
+│  │                                                      │    │
+│  │    contacts.json     → Kontaktanfragen              │    │
+│  │    newsletter.json   → Newsletter Abos              │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Docker Deployment
-
-### Schnellstart
+## Schnellstart
 
 ```bash
 # 1. In das Verzeichnis wechseln
@@ -58,23 +62,40 @@ cp .env.example .env
 # 3. .env anpassen
 nano .env
 
-# 4. Docker Container starten
+# 4. Backend starten
 docker-compose up -d --build
 
-# 5. Status prüfen
-docker-compose ps
-
-# 6. Health Check
-curl http://localhost:8080/health
+# 5. Health Check
 curl http://localhost:8000/health
 ```
 
-### Environment Variables (.env)
+### Nginx Proxy Konfiguration (auf deinem Server)
+
+Füge in deiner Nginx Config hinzu:
+
+```nginx
+# API Proxy zum Backend
+location /api/ {
+    proxy_pass http://127.0.0.1:8000/api/;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+location /health {
+    proxy_pass http://127.0.0.1:8000/health;
+}
+```
+
+---
+
+## Environment Variables (.env)
 
 | Variable | Beschreibung | Default |
 |----------|--------------|---------|
 | `CONTAINER_NAME` | Basis-Name für Container | `astra-capital` |
-| `WEBSITE_PORT` | Port für Website (Nginx) | `8080` |
 | `API_PORT` | Port für Backend API | `8000` |
 | `DOMAIN` | Deine Domain | `astra-capital.eu` |
 | `CONTACT_EMAIL` | E-Mail für Benachrichtigungen | `info@astra-capital.at` |
@@ -83,28 +104,6 @@ curl http://localhost:8000/health
 | `SMTP_PORT` | SMTP Port | `587` |
 | `SMTP_USER` | SMTP Benutzer | - |
 | `SMTP_PASS` | SMTP Passwort | - |
-
-### Befehle
-
-```bash
-# Container starten
-docker-compose up -d
-
-# Container stoppen
-docker-compose down
-
-# Logs anzeigen (alle)
-docker-compose logs -f
-
-# Logs nur Backend
-docker-compose logs -f astra-backend
-
-# Neu bauen
-docker-compose up -d --build --force-recreate
-
-# Status
-docker-compose ps
-```
 
 ---
 
@@ -140,11 +139,6 @@ Content-Type: application/json
 }
 ```
 
-### Statistiken
-```bash
-GET /api/stats
-```
-
 ---
 
 ## Geschäftsbereiche
@@ -166,90 +160,24 @@ GET /api/stats
 │   ├── server.py               ← API Server
 │   ├── requirements.txt        ← Python Dependencies
 │   └── Dockerfile              ← Backend Image
-├── docker/                     ← Docker Konfigurationen
-│   └── default.conf            ← Nginx Config mit API Proxy
 ├── pages/                      ← Bereichsseiten
-│   ├── development.html        ← Cyan
-│   ├── ecom.html               ← Grün
-│   ├── consulting.html         ← Gold (Coming Soon)
-│   └── vending.html            ← Lila (Coming Soon)
-├── css/                        ← Stylesheets
-│   ├── astra-custom.css        ← Hauptstyles + Preloader
-│   └── astra-areas.css         ← Bereichs-CSS
-├── js/                         ← JavaScript
-│   ├── astra-api.js            ← API Integration
-│   └── astra-custom.js         ← Custom Scripts
-├── img/                        ← Bilder
-├── Dockerfile                  ← Frontend Image
-├── docker-compose.yml          ← Container Orchestrierung
-├── .env.example                ← Beispiel Environment
-├── index.html                  ← Portal/Startseite
-├── 404.html                    ← Error Page
-└── README.md                   ← Diese Datei
-```
-
----
-
-## Features
-
-### Portal (index.html)
-- Fullscreen Slider mit 4 Geschäftsbereichen
-- TOR-Preloader Animation (Astra Branding)
-- Dark/Light Theme Toggle mit Wellen-Animation
-- Responsive Design
-- "Coming Soon" Badge für Consulting & Vending
-
-### Bereichsseiten
-- Hero mit Parallax & Floating Shapes
-- Custom Cursor Effekt
-- About Section mit animierten Stats
-- 6 Service Cards
-- Portfolio/Works Grid
-- Testimonials
-- Team Section
-- Kontaktformular (mit Backend-Integration)
-- Newsletter Signup
-- Footer mit Navigation
-
-### Backend
-- FastAPI Server
-- Kontaktformular-Verarbeitung
-- Newsletter-Verwaltung
-- E-Mail-Benachrichtigungen (optional)
-- Statistik-Endpoint
-
----
-
-## Nginx Reverse Proxy (Extern)
-
-Siehe `NGINX_PROMPT.md` für die externe Nginx-Konfiguration.
-
----
-
-## Lokale Entwicklung
-
-```bash
-# Einfacher HTTP Server
-cd MAIN-WEBSITE
-python3 -m http.server 8080
-
-# Backend separat starten
-cd backend
-pip install -r requirements.txt
-python server.py
+│   ├── development.html
+│   ├── ecom.html
+│   ├── consulting.html
+│   └── vending.html
+├── css/
+├── js/
+│   └── astra-api.js            ← Frontend API Integration
+├── img/
+├── docker-compose.yml          ← Nur Backend Service
+├── .env.example
+├── index.html                  ← Portal
+└── README.md
 ```
 
 ---
 
 ## Lizenz
 
-Original-Templates (Ultimex, Blackex, Doex) von **ex-nihilo** (ThemeForest).
+Original-Templates von **ex-nihilo** (ThemeForest).
 Custom Entwicklungen © 2024 Astra Capital e.U.
-
----
-
-## Kontakt
-
-**Astra Capital e.U.**
-- Email: info@astra-capital.at
-- Web: https://astra-capital.eu

@@ -1,36 +1,9 @@
 # Astra Capital e.U. - Docker Compose
-# Frontend (Nginx) + Backend (FastAPI)
+# Nur Backend (FastAPI) - Frontend wird extern via Nginx bedient
 
 version: '3.8'
 
 services:
-  # Frontend - Static Website with Nginx
-  astra-website:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    container_name: ${CONTAINER_NAME:-astra-capital-website}
-    restart: unless-stopped
-    ports:
-      - "${WEBSITE_PORT:-8080}:80"
-    environment:
-      - CONTAINER_NAME=${CONTAINER_NAME:-astra-capital-website}
-      - WEBSITE_PORT=${WEBSITE_PORT:-8080}
-      - DOMAIN=${DOMAIN:-astra-capital.eu}
-      - TZ=${TZ:-Europe/Vienna}
-      - CONTACT_EMAIL=${CONTACT_EMAIL:-info@astra-capital.at}
-    volumes:
-      - ./logs/nginx:/var/log/nginx
-    depends_on:
-      - astra-backend
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    networks:
-      - astra-network
-
   # Backend - FastAPI Server
   astra-backend:
     build:
@@ -51,7 +24,7 @@ services:
       - TZ=${TZ:-Europe/Vienna}
     volumes:
       - backend-data:/app/data
-      - ./logs/backend:/app/logs
+      - ./logs:/app/logs
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
