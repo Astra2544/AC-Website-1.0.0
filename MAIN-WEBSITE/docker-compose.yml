@@ -1,9 +1,30 @@
 # Astra Capital e.U. - Docker Compose
-# Nur Backend (FastAPI) - Frontend wird extern via Nginx bedient
+# Frontend (Website) + Backend (API)
 
 version: '3.8'
 
 services:
+  # Frontend - Static Website
+  astra-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME:-astra-capital}-website
+    restart: unless-stopped
+    ports:
+      - "${WEBSITE_PORT:-8080}:80"
+    environment:
+      - WEBSITE_PORT=${WEBSITE_PORT:-8080}
+      - DOMAIN=${DOMAIN:-astra-capital.eu}
+      - TZ=${TZ:-Europe/Vienna}
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - astra-network
+
   # Backend - FastAPI Server
   astra-backend:
     build:
@@ -33,12 +54,10 @@ services:
     networks:
       - astra-network
 
-# Named volumes for persistent data
 volumes:
   backend-data:
     name: astra-backend-data
 
-# Network
 networks:
   astra-network:
     name: astra-network
