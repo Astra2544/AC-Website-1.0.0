@@ -75,8 +75,8 @@
                             <li><a class="link-underline-menu active" href="#home">Home</a></li>
                             <li><a class="link-underline-menu" href="pages/development.html">Astra Development</a></li>
                             <li><a class="link-underline-menu" href="pages/ecom.html">Astra Ecom</a></li>
-                            <li class="nav-coming-soon"><a class="link-underline-menu coming-soon-link" href="#" onclick="return false;">Astra Consulting</a><span class="nav-tooltip">Bald verfügbar</span></li>
-                            <li class="nav-coming-soon"><a class="link-underline-menu coming-soon-link" href="#" onclick="return false;">Astra Vending</a><span class="nav-tooltip">Bald verfügbar</span></li>
+                            <li class="nav-coming-soon"><a class="link-underline-menu coming-soon-link" href="#" data-area="Consulting">Astra Consulting</a></li>
+                            <li class="nav-coming-soon"><a class="link-underline-menu coming-soon-link" href="#" data-area="Vending">Astra Vending</a></li>
                             <li><a class="link-underline-menu" href="pages/legal.html" data-testid="nav-legal">Rechtliches</a></li>
                         </ul>
                     </div>
@@ -255,6 +255,23 @@
             
         </div>
         
+        <!-- Coming Soon Modal -->
+        <div class="coming-soon-modal-overlay" id="comingSoonModal">
+            <div class="coming-soon-modal">
+                <div class="modal-sparkles">
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                </div>
+                <div class="modal-emoji">🚀</div>
+                <h3 class="modal-title">Schon neugierig<span>?</span> ;)</h3>
+                <p class="modal-text">Dieser Bereich ist noch im Aufbau!<br>Wir arbeiten mit Hochdruck daran, bald etwas Großartiges zu präsentieren.</p>
+                <button class="modal-close-btn" id="closeComingSoon">Verstanden</button>
+            </div>
+        </div>
+        
         <script src="js/plugins.js"></script>
         <script src="js/ultimex.js"></script>
         <script>
@@ -289,9 +306,44 @@
                     };
                 }
                 
-                // Coming soon links
+                // Coming soon links - Modal öffnen
                 document.querySelectorAll('.coming-soon-link').forEach(function(link) {
-                    link.onclick = function(e) { e.preventDefault(); };
+                    link.onclick = function(e) { 
+                        e.preventDefault();
+                        var modal = document.getElementById('comingSoonModal');
+                        if (modal) {
+                            modal.classList.add('active');
+                            document.body.style.overflow = 'hidden';
+                        }
+                    };
+                });
+                
+                // Modal schließen
+                var closeBtn = document.getElementById('closeComingSoon');
+                var modalOverlay = document.getElementById('comingSoonModal');
+                
+                if (closeBtn) {
+                    closeBtn.onclick = function() {
+                        modalOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    };
+                }
+                
+                if (modalOverlay) {
+                    modalOverlay.onclick = function(e) {
+                        if (e.target === modalOverlay) {
+                            modalOverlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    };
+                }
+                
+                // ESC zum Schließen
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+                        modalOverlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
                 });
                 
                 // Custom Cursor mit smoothem Ring (Hauptseite - Rot)
