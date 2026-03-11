@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechtliches | Astra Capital e.U.</title>
+    <meta name="description" content="Rechtliche Informationen - Impressum, Datenschutz und AGB von Astra Capital e.U.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style-dark.css">
+    <link rel="stylesheet" href="../css/astra-areas.css">
+    
+    <style>
+        :root {
+            --legal-color: #ff264a;
+            --legal-color-rgb: 255, 38, 74;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        .legal-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .legal-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+        
+        .legal-logo span {
+            color: var(--legal-color);
+        }
+        
+        .legal-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 12px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .legal-back:hover {
+            border-color: var(--legal-color);
+            color: var(--legal-color);
+        }
+        
+        /* Hero */
+        .legal-hero {
+            padding: 180px 50px 100px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .legal-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center top, rgba(var(--legal-color-rgb), 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .legal-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 72px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        
+        .legal-title span {
+            color: var(--legal-color);
+        }
+        
+        .legal-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        
+        /* Content */
+        .legal-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 50px 100px;
+        }
+        
+        /* Accordion */
+        .legal-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .accordion-item {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-item:hover {
+            border-color: rgba(var(--legal-color-rgb), 0.3);
+        }
+        
+        .accordion-item.active {
+            border-color: var(--legal-color);
+        }
+        
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .accordion-item.active .accordion-header {
+            background: rgba(var(--legal-color-rgb), 0.1);
+        }
+        
+        .accordion-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .accordion-title i {
+            color: var(--legal-color);
+            font-size: 18px;
+        }
+        
+        .accordion-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-icon i {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-item.active .accordion-icon {
+            background: var(--legal-color);
+            border-color: var(--legal-color);
+        }
+        
+        .accordion-item.active .accordion-icon i {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .accordion-item.active .accordion-body {
+            max-height: 2000px;
+        }
+        
+        .accordion-content {
+            padding: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .accordion-content h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            margin: 30px 0 15px;
+            color: #fff;
+            letter-spacing: 0.05em;
+        }
+        
+        .accordion-content h3:first-child {
+            margin-top: 0;
+        }
+        
+        .accordion-content p {
+            margin-bottom: 15px;
+        }
+        
+        .accordion-content ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .accordion-content li {
+            margin-bottom: 8px;
+        }
+        
+        .accordion-content a {
+            color: var(--legal-color);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .accordion-content a:hover {
+            opacity: 0.7;
+        }
+        
+        /* Footer */
+        .legal-footer {
+            padding: 40px 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+        
+        .legal-footer-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+        }
+        
+        .legal-footer-text a {
+            color: var(--legal-color);
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .legal-nav {
+                padding: 20px 25px;
+            }
+            
+            .legal-hero {
+                padding: 140px 25px 60px;
+            }
+            
+            .legal-title {
+                font-size: 42px;
+            }
+            
+            .legal-content {
+                padding: 0 25px 60px;
+            }
+            
+            .accordion-header {
+                padding: 20px;
+            }
+            
+            .accordion-title {
+                font-size: 16px;
+            }
+            
+            .accordion-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Skip to content - Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--legal-color);
+            color: #fff;
+            padding: 10px 20px;
+            z-index: 10000;
+            transition: top 0.3s ease;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+    
+    <!-- Navigation -->
+    <nav class="legal-nav" role="navigation" aria-label="Hauptnavigation">
+        <a href="../index.html" class="legal-logo" aria-label="Zur Startseite">
+            ASTRA <span>CAPITAL</span>
+        </a>
+        <a href="../index.html" class="legal-back" data-testid="back-home">
+            <i class="fas fa-arrow-left"></i>
+            Zurück
+        </a>
+    </nav>
+    
+    <!-- Hero -->
+    <header class="legal-hero">
+        <h1 class="legal-title">Recht<span>liches</span></h1>
+        <p class="legal-subtitle">Impressum • Datenschutz • AGB</p>
+    </header>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="legal-content" role="main">
+        <div class="legal-accordion">
+            
+            <!-- Impressum -->
+            <article class="accordion-item" data-testid="accordion-impressum">
+                <div class="accordion-header" role="button" aria-expanded="false" aria-controls="impressum-content" tabindex="0">
+                    <div class="accordion-title">
+                        <i class="fas fa-building"></i>
+                        Impressum
+                    </div>
+                    <div class="accordion-icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="accordion-body" id="impressum-content" role="region" aria-labelledby="impressum-header">
+                    <div class="accordion-content">
+                        <h3>Angaben gemäß § 5 ECG</h3>
+                        <p>
+                            <strong>Astra Capital e.U.</strong><br>
+                            [Straße und Hausnummer]<br>
+                            [PLZ] [Stadt]<br>
+                            Österreich
+                        </p>
+                        
+                        <h3>Kontakt</h3>
+                        <p>
+                            Telefon: [Telefonnummer]<br>
+                            E-Mail: <a href="mailto:info@astra-capital.at">info@astra-capital.at</a>
+                        </p>
+                        
+                        <h3>Unternehmensgegenstand</h3>
+                        <p>IT-Dienstleistungen, E-Commerce, Unternehmensberatung</p>
+                        
+                        <h3>UID-Nummer</h3>
+                        <p>ATU[Nummer]</p>
+                        
+                        <h3>Firmenbuchnummer</h3>
+                        <p>FN [Nummer]</p>
+                        
+                        <h3>Firmenbuchgericht</h3>
+                        <p>[Zuständiges Gericht]</p>
+                        
+                        <h3>Berufsrecht</h3>
+                        <p>Gewerbeordnung: <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener">www.ris.bka.gv.at</a></p>
+                        
+                        <h3>Aufsichtsbehörde</h3>
+                        <p>[Zuständige Bezirkshauptmannschaft]</p>
+                        
+                        <h3>Verbraucherstreitbeilegung</h3>
+                        <p>
+                            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer 
+                            Verbraucherschlichtungsstelle teilzunehmen.
+                        </p>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Datenschutz -->
+            <article class="accordion-item" data-testid="accordion-datenschutz">
+                <div class="accordion-header" role="button" aria-expanded="false" aria-controls="datenschutz-content" tabindex="0">
+                    <div class="accordion-title">
+                        <i class="fas fa-shield-alt"></i>
+                        Datenschutzerklärung
+                    </div>
+                    <div class="accordion-icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="accordion-body" id="datenschutz-content" role="region">
+                    <div class="accordion-content">
+                        <h3>1. Datenschutz auf einen Blick</h3>
+                        <p>
+                            Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren 
+                            personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
+                        </p>
+                        
+                        <h3>2. Verantwortliche Stelle</h3>
+                        <p>
+                            Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br><br>
+                            Astra Capital e.U.<br>
+                            [Adresse]<br>
+                            E-Mail: <a href="mailto:info@astra-capital.at">info@astra-capital.at</a>
+                        </p>
+                        
+                        <h3>3. Datenerfassung auf dieser Website</h3>
+                        <p>
+                            <strong>Wer ist verantwortlich für die Datenerfassung?</strong><br>
+                            Die Datenverarbeitung erfolgt durch den Websitebetreiber.
+                        </p>
+                        <p>
+                            <strong>Wie erfassen wir Ihre Daten?</strong><br>
+                            Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen 
+                            (z.B. über das Kontaktformular). Andere Daten werden automatisch beim Besuch 
+                            der Website durch unsere IT-Systeme erfasst (z.B. Browser, Betriebssystem, Uhrzeit).
+                        </p>
+                        
+                        <h3>4. Ihre Rechte</h3>
+                        <p>Sie haben jederzeit das Recht:</p>
+                        <ul>
+                            <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
+                            <li>Berichtigung unrichtiger Daten zu verlangen</li>
+                            <li>Löschung Ihrer Daten zu verlangen</li>
+                            <li>Einschränkung der Verarbeitung zu verlangen</li>
+                            <li>Datenübertragbarkeit zu verlangen</li>
+                            <li>Widerspruch gegen die Verarbeitung einzulegen</li>
+                        </ul>
+                        
+                        <h3>5. Hosting</h3>
+                        <p>
+                            Diese Website wird bei einem externen Dienstleister gehostet. 
+                            Die personenbezogenen Daten, die auf dieser Website erfasst werden, 
+                            werden auf den Servern des Hosters gespeichert.
+                        </p>
+                        
+                        <h3>6. Kontaktformular</h3>
+                        <p>
+                            Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben 
+                            aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten 
+                            zwecks Bearbeitung der Anfrage bei uns gespeichert.
+                        </p>
+                        
+                        <h3>7. SSL-Verschlüsselung</h3>
+                        <p>
+                            Diese Seite nutzt aus Sicherheitsgründen eine SSL-Verschlüsselung. 
+                            Eine verschlüsselte Verbindung erkennen Sie an dem Schloss-Symbol in der Browserzeile.
+                        </p>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- AGB -->
+            <article class="accordion-item" data-testid="accordion-agb">
+                <div class="accordion-header" role="button" aria-expanded="false" aria-controls="agb-content" tabindex="0">
+                    <div class="accordion-title">
+                        <i class="fas fa-file-contract"></i>
+                        Allgemeine Geschäftsbedingungen
+                    </div>
+                    <div class="accordion-icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="accordion-body" id="agb-content" role="region">
+                    <div class="accordion-content">
+                        <h3>§ 1 Geltungsbereich</h3>
+                        <p>
+                            Diese Allgemeinen Geschäftsbedingungen gelten für alle Geschäftsbeziehungen 
+                            zwischen Astra Capital e.U. und dem Auftraggeber.
+                        </p>
+                        
+                        <h3>§ 2 Vertragsschluss</h3>
+                        <p>
+                            Der Vertrag kommt durch die Annahme des Angebots durch den Auftraggeber zustande. 
+                            Die Annahme kann schriftlich, per E-Mail oder durch konkludentes Handeln erfolgen.
+                        </p>
+                        
+                        <h3>§ 3 Leistungsumfang</h3>
+                        <p>
+                            Der Umfang der zu erbringenden Leistungen ergibt sich aus der Leistungsbeschreibung 
+                            im Angebot bzw. in der Auftragsbestätigung.
+                        </p>
+                        
+                        <h3>§ 4 Preise und Zahlung</h3>
+                        <p>
+                            Alle Preise verstehen sich in Euro zuzüglich der gesetzlichen Umsatzsteuer. 
+                            Rechnungen sind innerhalb von 14 Tagen nach Rechnungsdatum ohne Abzug zahlbar.
+                        </p>
+                        
+                        <h3>§ 5 Mitwirkungspflichten</h3>
+                        <p>
+                            Der Auftraggeber stellt alle für die Durchführung des Projekts benötigten 
+                            Daten und Unterlagen rechtzeitig zur Verfügung.
+                        </p>
+                        
+                        <h3>§ 6 Gewährleistung</h3>
+                        <p>
+                            Die Gewährleistungsfrist beträgt 12 Monate ab Abnahme der Leistung. 
+                            Mängel sind unverzüglich schriftlich anzuzeigen.
+                        </p>
+                        
+                        <h3>§ 7 Haftung</h3>
+                        <p>
+                            Die Haftung ist auf Vorsatz und grobe Fahrlässigkeit beschränkt. 
+                            Die Haftung für leichte Fahrlässigkeit ist ausgeschlossen.
+                        </p>
+                        
+                        <h3>§ 8 Geheimhaltung</h3>
+                        <p>
+                            Beide Parteien verpflichten sich, vertrauliche Informationen geheim zu halten 
+                            und nicht an Dritte weiterzugeben.
+                        </p>
+                        
+                        <h3>§ 9 Schlussbestimmungen</h3>
+                        <p>
+                            Es gilt österreichisches Recht. Gerichtsstand ist der Sitz des Auftragnehmers. 
+                            Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der 
+                            übrigen Bestimmungen unberührt.
+                        </p>
+                    </div>
+                </div>
+            </article>
+            
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="legal-footer" role="contentinfo">
+        <p class="legal-footer-text">
+            © 2024 <a href="../index.html">Astra Capital e.U.</a> — Alle Rechte vorbehalten.
+        </p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        // Accordion Functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const item = this.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            // Keyboard accessibility
+            header.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+        
+        // Open accordion from URL hash
+        if (window.location.hash) {
+            const hash = window.location.hash.substring(1);
+            const targetItem = document.querySelector(`[data-testid="accordion-${hash}"]`);
+            if (targetItem) {
+                targetItem.classList.add('active');
+                targetItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'true');
+                setTimeout(() => {
+                    targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>

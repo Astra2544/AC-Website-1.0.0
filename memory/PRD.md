@@ -1,77 +1,115 @@
 # Astra Capital e.U. - Website PRD
 
-## Original Problem Statement
-Komplette Website für Astra Capital e.U. mit 4 Geschäftsbereichen, jeweils mit eigener Hauptfarbe und vollständigen Unterseiten. Preloader mit TOR-Animation. Backend-Integration für Kontaktformulare.
+## Aktueller Stand: 11.03.2026
 
-## Was wurde implementiert
+## Geschäftsbereiche & Farben
 
-### Phase 1 (Initial)
-- ✅ Portal mit Fullscreen Slider
-- ✅ TOR-Preloader Animation
-- ✅ Dark/Light Theme Toggle
-- ✅ 4 komplette Bereichsseiten
+| Bereich | Farbe | HEX | Status |
+|---------|-------|-----|--------|
+| **Astra Development** | Rot | `#ff264a` | ✅ Aktiv |
+| **Astra Ecom** | Blau | `#0073ff` | ✅ Aktiv |
+| **Astra Consulting** | Gelb | `#ffbf00` | ⏳ Coming Soon |
+| **Astra Vending** | Lila | `#9000ff` | ⏳ Coming Soon |
+
+## Implementierte Features
+
+### Portal (index.html)
+- ✅ Fullscreen Slider mit 4 Bereichen
+- ✅ TOR-Preloader Animation (funktioniert in allen Größen)
+- ✅ Dark/Light Theme Toggle mit Wellen-Animation
+- ✅ Dynamische Bereichsfarben (wechseln mit Slide)
+- ✅ Coming Soon Badge für Consulting & Vending
+- ✅ Custom Cursor (Rot) mit smoothem Ring
+- ✅ Rechtliches-Link (unten rechts)
 - ✅ Responsive Design
 
-### Phase 2 (10.03.2026)
-- ✅ **Bereichsfarben auf Portal-Seite:**
-  - Development: Cyan `#00d4ff`
-  - Ecom: Grün `#00ff88`
-  - Consulting: Gold `#ffaa00`
-  - Vending: Lila `#aa00ff`
-- ✅ Coming Soon Badge für Consulting & Vending (in jeweiliger Bereichsfarbe)
-- ✅ Navigation Coming Soon mit Tooltip + blockierte Links
-- ✅ Area Indicators mit Bereichsfarben
+### Bereichsseiten (pages/)
+- ✅ development.html - Rot
+- ✅ ecom.html - Blau
+- ✅ consulting.html - Gelb
+- ✅ vending.html - Lila
+- ✅ **legal.html - NEU** (Rechtliches mit Accordion)
+- ✅ Custom Cursor mit smoothem Ring-Effekt
+- ✅ Footer mit Rechtliches-Link
 
-- ✅ **Backend (FastAPI) implementiert:**
-  - `/api/contact` - Kontaktformular
-  - `/api/newsletter` - Newsletter Signup
-  - `/api/stats` - Statistiken
-  - `/health` - Health Check
+### Rechtliches (legal.html)
+- ✅ Accordion-Design
+- ✅ Impressum
+- ✅ Datenschutzerklärung
+- ✅ AGB
+- ✅ Barrierefrei (Skip-Link, aria-labels, Keyboard-Navigation)
+- ✅ URL-Hash Support (#impressum, #datenschutz, #agb)
 
-- ✅ **docker-compose.yml NUR Backend:**
-  - Kein Nginx im Docker (extern auf Server)
-  - Environment Variables:
-    - API_PORT, DOMAIN, CONTACT_EMAIL
-    - SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
-    - TZ
+### Backend (FastAPI)
+- ✅ /api/contact - Kontaktformular
+- ✅ /api/newsletter - Newsletter
+- ✅ /api/stats - Statistiken
+- ✅ /health - Health Check
+- ✅ Docker-ready
 
-- ✅ **Frontend API Integration** (`astra-api.js`)
-- ✅ Toast-Notifications
+### Docker Setup
+- ✅ astra-website (Nginx) - Port 8080
+- ✅ astra-backend (FastAPI) - Port 8000
+- ✅ Environment Variables konfiguriert
 
 ## Dateistruktur
+
 ```
 /MAIN-WEBSITE/
 ├── backend/
-│   ├── server.py          ← FastAPI Server
+│   ├── server.py
 │   ├── requirements.txt
-│   └── Dockerfile         ← NUR Backend Image
+│   └── Dockerfile
 ├── pages/
 │   ├── development.html
 │   ├── ecom.html
 │   ├── consulting.html
-│   └── vending.html
+│   ├── vending.html
+│   └── legal.html          ← NEU
 ├── css/
-│   ├── astra-custom.css   ← +Bereichsfarben
+│   ├── astra-custom.css
 │   └── astra-areas.css
 ├── js/
-│   ├── astra-api.js       ← API Integration
-│   └── ...
-├── docker-compose.yml     ← NUR Backend Service
+│   ├── ultimex.js
+│   ├── astra-custom.js
+│   └── astra-api.js
+├── img/
+├── fonts/
+├── Dockerfile
+├── docker-compose.yml
 ├── .env.example
-└── index.html             ← Portal mit Bereichsfarben
+├── index.html
+└── README.md
 ```
 
-## Geschäftsbereiche
+## Environment Variables
 
-| Bereich | Farbe | Status |
-|---------|-------|--------|
-| Development | Cyan #00d4ff | ✅ Aktiv |
-| Ecom | Grün #00ff88 | ✅ Aktiv |
-| Consulting | Gold #ffaa00 | ⏳ Coming Soon |
-| Vending | Lila #aa00ff | ⏳ Coming Soon |
+```env
+CONTAINER_NAME=astra-capital
+WEBSITE_PORT=8080
+API_PORT=8000
+DOMAIN=astra-capital.eu
+CONTACT_EMAIL=info@astra-capital.at
+TZ=Europe/Vienna
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASS=
+```
 
-## Nächste Schritte
-1. `.env` auf Server erstellen
-2. `docker-compose up -d --build`
-3. Nginx Config für API Proxy anpassen
-4. SMTP für E-Mail konfigurieren (optional)
+## Deployment
+
+```bash
+cp .env.example .env
+# .env anpassen
+docker-compose up -d --build
+```
+
+## Nächste Schritte (Optional)
+
+- [ ] Echte Firmen-Daten in legal.html eintragen
+- [ ] Echte Bilder für Hero-Slider
+- [ ] Logo austauschen
+- [ ] SMTP für E-Mail konfigurieren
+- [ ] Cookie Banner
+- [ ] SEO Meta Tags
