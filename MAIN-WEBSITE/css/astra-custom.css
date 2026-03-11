@@ -80,68 +80,6 @@
 }
 
 /* ============================================
-   LEGAL LINK - HAUPTSEITE (dezent unten links)
-   ============================================ */
-.legal-link-main {
-    position: fixed;
-    bottom: 20px;
-    left: 25px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.35);
-    text-decoration: none;
-    font-family: 'Raleway', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    z-index: 100;
-}
-
-.legal-link-main i {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.35);
-    transition: color 0.3s ease;
-}
-
-.legal-link-main:hover {
-    color: var(--primary-color);
-}
-
-.legal-link-main:hover i {
-    color: var(--primary-color);
-}
-
-[data-theme="light"] .legal-link-main {
-    color: rgba(0, 0, 0, 0.35);
-}
-
-[data-theme="light"] .legal-link-main i {
-    color: rgba(0, 0, 0, 0.35);
-}
-
-[data-theme="light"] .legal-link-main:hover {
-    color: var(--primary-color);
-}
-
-[data-theme="light"] .legal-link-main:hover i {
-    color: var(--primary-color);
-}
-
-@media only screen and (max-width: 768px) {
-    .legal-link-main {
-        bottom: 15px;
-        left: 20px;
-        font-size: 9px;
-    }
-}
-
-/* ============================================
    AREA-SPECIFIC COLORS (Portal Page)
    Dynamisch über CSS Variable --current-area-color
    ============================================ */
