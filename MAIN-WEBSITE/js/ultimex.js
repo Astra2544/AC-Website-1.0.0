@@ -336,10 +336,10 @@ $(function() {
     function updateAreaColors(index) {
         var root = document.documentElement;
         var colors = [
-            { color: '#00d4ff', rgb: '0, 212, 255' },    // Development - Cyan
-            { color: '#00ff88', rgb: '0, 255, 136' },    // Ecom - Green
-            { color: '#ffaa00', rgb: '255, 170, 0' },    // Consulting - Gold
-            { color: '#aa00ff', rgb: '170, 0, 255' }     // Vending - Purple
+            { color: '#ff264a', rgb: '255, 38, 74' },     // Development - Rot
+            { color: '#0073ff', rgb: '0, 115, 255' },     // Ecom - Blau
+            { color: '#ffbf00', rgb: '255, 191, 0' },     // Consulting - Gelb
+            { color: '#9000ff', rgb: '144, 0, 255' }      // Vending - Lila
         ];
         
         var current = colors[index] || colors[0];

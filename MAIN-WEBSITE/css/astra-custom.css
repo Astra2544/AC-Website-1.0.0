@@ -12,14 +12,14 @@
     --transition-fast: 0.3s ease;
     
     /* Area Colors */
-    --color-development: #00d4ff;
-    --color-development-rgb: 0, 212, 255;
-    --color-ecom: #00ff88;
-    --color-ecom-rgb: 0, 255, 136;
-    --color-consulting: #ffaa00;
-    --color-consulting-rgb: 255, 170, 0;
-    --color-vending: #aa00ff;
-    --color-vending-rgb: 170, 0, 255;
+    --color-development: #ff264a;
+    --color-development-rgb: 255, 38, 74;
+    --color-ecom: #0073ff;
+    --color-ecom-rgb: 0, 115, 255;
+    --color-consulting: #ffbf00;
+    --color-consulting-rgb: 255, 191, 0;
+    --color-vending: #9000ff;
+    --color-vending-rgb: 144, 0, 255;
     
     /* Dark Theme Colors */
     --bg-dark: #000000;
@@ -93,7 +93,7 @@
 .area-button:hover {
     background: var(--current-area-color, var(--color-development)) !important;
     color: #000 !important;
-    box-shadow: 0 0 30px var(--current-area-color-glow, rgba(0, 212, 255, 0.5)) !important;
+    box-shadow: 0 0 30px var(--current-area-color-glow, rgba(255, 38, 74, 0.5)) !important;
 }
 .area-button .button-arrow svg {
     stroke: var(--current-area-color, var(--color-development)) !important;
@@ -118,8 +118,8 @@
 /* Coming Soon Badge - dynamische Farbe */
 .coming-soon-badge {
     color: var(--current-area-color, var(--primary-color)) !important;
-    border-color: var(--current-area-color-dim, rgba(255, 170, 0, 0.3)) !important;
-    background: var(--current-area-color-bg, rgba(255, 170, 0, 0.05)) !important;
+    border-color: var(--current-area-color-dim, rgba(255, 191, 0, 0.3)) !important;
+    background: var(--current-area-color-bg, rgba(255, 191, 0, 0.05)) !important;
     animation: pulseGlowCurrent 2s ease-in-out infinite;
 }
 .coming-soon-badge .badge-icon svg {
@@ -128,10 +128,10 @@
 
 @keyframes pulseGlowCurrent {
     0%, 100% { 
-        box-shadow: 0 0 20px var(--current-area-color-dim, rgba(255, 170, 0, 0.1));
+        box-shadow: 0 0 20px var(--current-area-color-dim, rgba(255, 191, 0, 0.1));
     }
     50% { 
-        box-shadow: 0 0 30px var(--current-area-color-glow, rgba(255, 170, 0, 0.25));
+        box-shadow: 0 0 30px var(--current-area-color-glow, rgba(255, 191, 0, 0.25));
     }
 }
 

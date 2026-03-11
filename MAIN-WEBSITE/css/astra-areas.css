@@ -7,36 +7,36 @@
    AREA COLOR SCHEMES
    ============================================ */
 
-/* Development - Cyan/Blue */
+/* Development - Rot (Primary) */
 .area-development {
-    --area-color: #00d4ff;
-    --area-color-rgb: 0, 212, 255;
-    --area-gradient: linear-gradient(135deg, #00d4ff, #0099cc);
-    --area-glow: 0 0 30px rgba(0, 212, 255, 0.4);
+    --area-color: #ff264a;
+    --area-color-rgb: 255, 38, 74;
+    --area-gradient: linear-gradient(135deg, #ff264a, #cc1f3b);
+    --area-glow: 0 0 30px rgba(255, 38, 74, 0.4);
 }
 
-/* Ecom - Green */
+/* Ecom - Blau */
 .area-ecom {
-    --area-color: #00ff88;
-    --area-color-rgb: 0, 255, 136;
-    --area-gradient: linear-gradient(135deg, #00ff88, #00cc6a);
-    --area-glow: 0 0 30px rgba(0, 255, 136, 0.4);
+    --area-color: #0073ff;
+    --area-color-rgb: 0, 115, 255;
+    --area-gradient: linear-gradient(135deg, #0073ff, #005acc);
+    --area-glow: 0 0 30px rgba(0, 115, 255, 0.4);
 }
 
-/* Consulting - Gold */
+/* Consulting - Gelb */
 .area-consulting {
-    --area-color: #ffaa00;
-    --area-color-rgb: 255, 170, 0;
-    --area-gradient: linear-gradient(135deg, #ffaa00, #ff8800);
-    --area-glow: 0 0 30px rgba(255, 170, 0, 0.4);
+    --area-color: #ffbf00;
+    --area-color-rgb: 255, 191, 0;
+    --area-gradient: linear-gradient(135deg, #ffbf00, #cc9900);
+    --area-glow: 0 0 30px rgba(255, 191, 0, 0.4);
 }
 
-/* Vending - Purple */
+/* Vending - Lila */
 .area-vending {
-    --area-color: #aa00ff;
-    --area-color-rgb: 170, 0, 255;
-    --area-gradient: linear-gradient(135deg, #aa00ff, #8800cc);
-    --area-glow: 0 0 30px rgba(170, 0, 255, 0.4);
+    --area-color: #9000ff;
+    --area-color-rgb: 144, 0, 255;
+    --area-gradient: linear-gradient(135deg, #9000ff, #7300cc);
+    --area-glow: 0 0 30px rgba(144, 0, 255, 0.4);
 }
 
 /* ============================================
