@@ -38,77 +38,94 @@
 
 /* ============================================
    AREA-SPECIFIC COLORS (Portal Page)
+   Jeder Bereich hat seine eigene Akzentfarbe
    ============================================ */
 
-/* Development - Cyan */
-.color-development { color: var(--color-development) !important; }
-.btn-development {
+/* === DEVELOPMENT - Cyan #00d4ff === */
+.slide-development .post-heading { color: var(--color-development) !important; }
+.slide-development .post-title-color { color: var(--color-development) !important; }
+.slide-development .area-button {
     border-color: var(--color-development) !important;
+    color: var(--color-development) !important;
 }
-.btn-development:hover {
+.slide-development .area-button:hover {
     background: var(--color-development) !important;
+    color: #000 !important;
     box-shadow: 0 0 30px rgba(var(--color-development-rgb), 0.5) !important;
 }
-
-/* Ecom - Green */
-.color-ecom { color: var(--color-ecom) !important; }
-.btn-ecom {
-    border-color: var(--color-ecom) !important;
+.slide-development .area-button .button-arrow svg {
+    stroke: var(--color-development) !important;
 }
-.btn-ecom:hover {
+.slide-development .area-button:hover .button-arrow svg {
+    stroke: #000 !important;
+}
+
+/* === ECOM - Green #00ff88 === */
+.slide-ecom .post-heading { color: var(--color-ecom) !important; }
+.slide-ecom .post-title-color { color: var(--color-ecom) !important; }
+.slide-ecom .area-button {
+    border-color: var(--color-ecom) !important;
+    color: var(--color-ecom) !important;
+}
+.slide-ecom .area-button:hover {
     background: var(--color-ecom) !important;
+    color: #000 !important;
     box-shadow: 0 0 30px rgba(var(--color-ecom-rgb), 0.5) !important;
 }
+.slide-ecom .area-button .button-arrow svg {
+    stroke: var(--color-ecom) !important;
+}
+.slide-ecom .area-button:hover .button-arrow svg {
+    stroke: #000 !important;
+}
 
-/* Consulting - Gold */
-.color-consulting { color: var(--color-consulting) !important; }
-.badge-consulting {
+/* === CONSULTING - Gold #ffaa00 === */
+.slide-consulting .post-heading { color: var(--color-consulting) !important; }
+.slide-consulting .post-title-color { color: var(--color-consulting) !important; }
+.slide-consulting .coming-soon-badge {
     color: var(--color-consulting) !important;
     border-color: rgba(var(--color-consulting-rgb), 0.3) !important;
     background: rgba(var(--color-consulting-rgb), 0.05) !important;
+    animation: pulseGlowConsulting 2s ease-in-out infinite;
 }
-.badge-consulting .badge-icon svg {
+.slide-consulting .coming-soon-badge .badge-icon svg {
     stroke: var(--color-consulting) !important;
 }
 @keyframes pulseGlowConsulting {
     0%, 100% { 
-        box-shadow: 0 0 20px rgba(var(--color-consulting-rgb), 0.1);
-        border-color: rgba(var(--color-consulting-rgb), 0.3);
+        box-shadow: 0 0 20px rgba(255, 170, 0, 0.1);
+        border-color: rgba(255, 170, 0, 0.3);
     }
     50% { 
-        box-shadow: 0 0 30px rgba(var(--color-consulting-rgb), 0.25);
-        border-color: rgba(var(--color-consulting-rgb), 0.5);
+        box-shadow: 0 0 30px rgba(255, 170, 0, 0.25);
+        border-color: rgba(255, 170, 0, 0.5);
     }
 }
-.badge-consulting {
-    animation: pulseGlowConsulting 2s ease-in-out infinite !important;
-}
 
-/* Vending - Purple */
-.color-vending { color: var(--color-vending) !important; }
-.badge-vending {
+/* === VENDING - Purple #aa00ff === */
+.slide-vending .post-heading { color: var(--color-vending) !important; }
+.slide-vending .post-title-color { color: var(--color-vending) !important; }
+.slide-vending .coming-soon-badge {
     color: var(--color-vending) !important;
     border-color: rgba(var(--color-vending-rgb), 0.3) !important;
     background: rgba(var(--color-vending-rgb), 0.05) !important;
+    animation: pulseGlowVending 2s ease-in-out infinite;
 }
-.badge-vending .badge-icon svg {
+.slide-vending .coming-soon-badge .badge-icon svg {
     stroke: var(--color-vending) !important;
 }
 @keyframes pulseGlowVending {
     0%, 100% { 
-        box-shadow: 0 0 20px rgba(var(--color-vending-rgb), 0.1);
-        border-color: rgba(var(--color-vending-rgb), 0.3);
+        box-shadow: 0 0 20px rgba(170, 0, 255, 0.1);
+        border-color: rgba(170, 0, 255, 0.3);
     }
     50% { 
-        box-shadow: 0 0 30px rgba(var(--color-vending-rgb), 0.25);
-        border-color: rgba(var(--color-vending-rgb), 0.5);
+        box-shadow: 0 0 30px rgba(170, 0, 255, 0.25);
+        border-color: rgba(170, 0, 255, 0.5);
     }
 }
-.badge-vending {
-    animation: pulseGlowVending 2s ease-in-out infinite !important;
-}
 
-/* Area Indicators Colors */
+/* === Area Indicators - Bereichsfarben === */
 .area-indicator[data-slide="0"].active .indicator-dot {
     background: var(--color-development) !important;
     box-shadow: 0 0 10px rgba(var(--color-development-rgb), 0.5) !important;
@@ -125,6 +142,17 @@
     background: var(--color-vending) !important;
     box-shadow: 0 0 10px rgba(var(--color-vending-rgb), 0.5) !important;
 }
+
+/* === Slider Pagination - Bereichsfarben === */
+.swiper-slide-pagination .swiper-pagination-bullet-active {
+    transition: background 0.3s ease;
+}
+
+/* Helper Classes (Legacy) */
+.color-development { color: var(--color-development) !important; }
+.color-ecom { color: var(--color-ecom) !important; }
+.color-consulting { color: var(--color-consulting) !important; }
+.color-vending { color: var(--color-vending) !important; }
 
 /* ============================================
    CUSTOM PRELOADER - TOR EDITION
