@@ -44,8 +44,15 @@ $(function() {
 	
     // 2. lifting control
     $(".navbar-collapse ul li a").on("click", function(e) {
-        e.preventDefault();
-        animateSlider(this.hash);
+        var href = $(this).attr('href');
+        
+        // Nur Hash-Links (#home, #about, etc.) abfangen
+        // Externe Links (pages/*.html) normal durchlassen
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            animateSlider(this.hash);
+        }
+        // Alle anderen Links (externe Seiten) werden normal geöffnet
     });
     function animateSlider(hash) {
         if (!$("#containerOT div.open").length) {
@@ -106,7 +113,11 @@ $(function() {
 	
     // 3. mobile menu closer
     $(".navbar-collapse ul li a").on("click", function() {
-        $(".navbar-toggle:visible").click();
+        var href = $(this).attr('href');
+        // Mobiles Menü nur bei Hash-Links schließen (bei externen Links wird sowieso navigiert)
+        if (href && href.startsWith('#')) {
+            $(".navbar-toggle:visible").click();
+        }
     });
 	
     // 4. owl carousel
