@@ -255,21 +255,10 @@
             
         </div>
         
-        <!-- Coming Soon Modal -->
-        <div class="coming-soon-modal-overlay" id="comingSoonModal">
-            <div class="coming-soon-modal">
-                <div class="modal-sparkles">
-                    <div class="sparkle"></div>
-                    <div class="sparkle"></div>
-                    <div class="sparkle"></div>
-                    <div class="sparkle"></div>
-                    <div class="sparkle"></div>
-                </div>
-                <div class="modal-emoji">🚀</div>
-                <h3 class="modal-title">Schon neugierig<span>?</span> ;)</h3>
-                <p class="modal-text">Dieser Bereich ist noch im Aufbau!<br>Wir arbeiten mit Hochdruck daran, bald etwas Großartiges zu präsentieren.</p>
-                <button class="modal-close-btn" id="closeComingSoon">Verstanden</button>
-            </div>
+        <!-- Coming Soon Toast -->
+        <div class="coming-soon-toast" id="comingSoonToast">
+            <div class="coming-soon-toast-line"></div>
+            <div class="coming-soon-toast-text"><strong>Schon neugierig?</strong> Dieser Bereich ist noch im Aufbau.</div>
         </div>
         
         <script src="js/plugins.js"></script>
@@ -306,44 +295,20 @@
                     };
                 }
                 
-                // Coming soon links - Modal öffnen
+                // Coming soon links - Toast anzeigen
+                var toastTimeout;
                 document.querySelectorAll('.coming-soon-link').forEach(function(link) {
                     link.onclick = function(e) { 
                         e.preventDefault();
-                        var modal = document.getElementById('comingSoonModal');
-                        if (modal) {
-                            modal.classList.add('active');
-                            document.body.style.overflow = 'hidden';
+                        var toast = document.getElementById('comingSoonToast');
+                        if (toast) {
+                            clearTimeout(toastTimeout);
+                            toast.classList.add('show');
+                            toastTimeout = setTimeout(function() {
+                                toast.classList.remove('show');
+                            }, 3000);
                         }
                     };
-                });
-                
-                // Modal schließen
-                var closeBtn = document.getElementById('closeComingSoon');
-                var modalOverlay = document.getElementById('comingSoonModal');
-                
-                if (closeBtn) {
-                    closeBtn.onclick = function() {
-                        modalOverlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    };
-                }
-                
-                if (modalOverlay) {
-                    modalOverlay.onclick = function(e) {
-                        if (e.target === modalOverlay) {
-                            modalOverlay.classList.remove('active');
-                            document.body.style.overflow = '';
-                        }
-                    };
-                }
-                
-                // ESC zum Schließen
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
-                        modalOverlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
                 });
                 
                 // Custom Cursor mit smoothem Ring (Hauptseite - Rot)
