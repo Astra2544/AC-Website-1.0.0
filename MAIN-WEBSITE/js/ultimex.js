@@ -37,9 +37,9 @@ $(function() {
 	
 	
     $(window).on("load", function() {
-        // 1. preloader
-        $("#preloader").fadeOut(600);
-        $(".preloader-bg").delay(400).fadeOut(600);
+        // Preloader wird via CSS gesteuert
+        // Preloader wird via CSS gesteuert
+        // Preloader wird via CSS gesteuert
     });
 	
     // 2. lifting control
