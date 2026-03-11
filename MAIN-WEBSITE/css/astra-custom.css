@@ -37,6 +37,49 @@
 }
 
 /* ============================================
+   CUSTOM CURSOR - HAUPTSEITE (Rot)
+   ============================================ */
+.cursor-dot-main {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+}
+
+.cursor-ring-main {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+}
+
+.cursor-ring-main.hover {
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+    background: rgba(var(--primary-color-rgb), 0.1);
+}
+
+/* Hide cursor on mobile/touch */
+@media only screen and (max-width: 992px) {
+    .cursor-dot-main,
+    .cursor-ring-main {
+        display: none !important;
+    }
+}
+
+/* ============================================
    AREA-SPECIFIC COLORS (Portal Page)
    Dynamisch über CSS Variable --current-area-color
    ============================================ */

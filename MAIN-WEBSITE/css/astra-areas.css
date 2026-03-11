@@ -64,7 +64,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
-    transition: transform 0.1s ease;
+    transform: translate(-50%, -50%);
     mix-blend-mode: difference;
 }
 
@@ -76,12 +76,14 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 99998;
-    transition: all 0.15s ease;
+    transform: translate(-50%, -50%);
     opacity: 0.5;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, background 0.3s ease;
 }
 
 .cursor-ring.hover {
-    transform: scale(1.5);
+    width: 60px;
+    height: 60px;
     opacity: 1;
     background: rgba(var(--area-color-rgb), 0.1);
 }

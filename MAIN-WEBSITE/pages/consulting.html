@@ -535,17 +535,35 @@
             }, 500);
         });
 
-        // Custom Cursor
+        // Custom Cursor mit smoothem Ring
         const cursorDot = document.getElementById('cursorDot');
         const cursorRing = document.getElementById('cursorRing');
         
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+        const ringSpeed = 0.15; // Wie schnell der Ring folgt (0-1)
+        
         if (window.innerWidth > 992) {
             document.addEventListener('mousemove', (e) => {
-                cursorDot.style.left = e.clientX + 'px';
-                cursorDot.style.top = e.clientY + 'px';
-                cursorRing.style.left = e.clientX - 16 + 'px';
-                cursorRing.style.top = e.clientY - 16 + 'px';
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                // Dot folgt sofort
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
             });
+            
+            // Ring folgt smooth mit Animation
+            function animateRing() {
+                // Lerp (Linear Interpolation) für smoothe Bewegung
+                ringX += (mouseX - ringX) * ringSpeed;
+                ringY += (mouseY - ringY) * ringSpeed;
+                
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+                
+                requestAnimationFrame(animateRing);
+            }
+            animateRing();
             
             document.querySelectorAll('a, button, .service-card, .work-item').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));

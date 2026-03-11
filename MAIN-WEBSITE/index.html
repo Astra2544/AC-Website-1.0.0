@@ -13,6 +13,10 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900%7COswald:300,400,700" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <!-- Custom Cursor -->
+        <div class="cursor-dot-main" id="cursorDot"></div>
+        <div class="cursor-ring-main" id="cursorRing"></div>
+        
         <!-- preloader -->
         <div class="preloader-wrapper">
             <div class="preloader-half preloader-top"></div>
@@ -288,6 +292,40 @@
                 document.querySelectorAll('.coming-soon-link').forEach(function(link) {
                     link.onclick = function(e) { e.preventDefault(); };
                 });
+                
+                // Custom Cursor mit smoothem Ring (Hauptseite - Rot)
+                var cursorDot = document.getElementById('cursorDot');
+                var cursorRing = document.getElementById('cursorRing');
+                
+                var mouseX = 0, mouseY = 0;
+                var ringX = 0, ringY = 0;
+                var ringSpeed = 0.15;
+                
+                if (window.innerWidth > 992 && cursorDot && cursorRing) {
+                    document.addEventListener('mousemove', function(e) {
+                        mouseX = e.clientX;
+                        mouseY = e.clientY;
+                        cursorDot.style.left = mouseX + 'px';
+                        cursorDot.style.top = mouseY + 'px';
+                    });
+                    
+                    function animateRing() {
+                        ringX += (mouseX - ringX) * ringSpeed;
+                        ringY += (mouseY - ringY) * ringSpeed;
+                        cursorRing.style.left = ringX + 'px';
+                        cursorRing.style.top = ringY + 'px';
+                        requestAnimationFrame(animateRing);
+                    }
+                    animateRing();
+                    
+                    document.querySelectorAll('a, button, .area-button, .theme-toggle, .area-indicator, .swiper-slide').forEach(function(el) {
+                        el.addEventListener('mouseenter', function() { cursorRing.classList.add('hover'); });
+                        el.addEventListener('mouseleave', function() { cursorRing.classList.remove('hover'); });
+                    });
+                } else if (cursorDot && cursorRing) {
+                    cursorDot.style.display = 'none';
+                    cursorRing.style.display = 'none';
+                }
                 
                 console.log('%c ASTRA CAPITAL ', 'background:#ff264a;color:white;font-size:20px;font-weight:bold;padding:10px 20px;');
             });
