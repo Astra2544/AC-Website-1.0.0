@@ -38,90 +38,57 @@
 
 /* ============================================
    AREA-SPECIFIC COLORS (Portal Page)
-   Jeder Bereich hat seine eigene Akzentfarbe
+   Dynamisch über CSS Variable --current-area-color
    ============================================ */
 
-/* === DEVELOPMENT - Cyan #00d4ff === */
-.slide-development .post-heading { color: var(--color-development) !important; }
-.slide-development .post-title-color { color: var(--color-development) !important; }
-.slide-development .area-button {
-    border-color: var(--color-development) !important;
-    color: var(--color-development) !important;
+/* Basis Area Button Styles */
+.area-button {
+    border-color: var(--current-area-color, var(--color-development)) !important;
+    color: var(--current-area-color, var(--color-development)) !important;
+    transition: all 0.4s ease !important;
 }
-.slide-development .area-button:hover {
-    background: var(--color-development) !important;
+.area-button:hover {
+    background: var(--current-area-color, var(--color-development)) !important;
     color: #000 !important;
-    box-shadow: 0 0 30px rgba(var(--color-development-rgb), 0.5) !important;
+    box-shadow: 0 0 30px var(--current-area-color-glow, rgba(0, 212, 255, 0.5)) !important;
 }
-.slide-development .area-button .button-arrow svg {
-    stroke: var(--color-development) !important;
+.area-button .button-arrow svg {
+    stroke: var(--current-area-color, var(--color-development)) !important;
+    transition: stroke 0.4s ease !important;
 }
-.slide-development .area-button:hover .button-arrow svg {
+.area-button:hover .button-arrow svg {
     stroke: #000 !important;
 }
 
-/* === ECOM - Green #00ff88 === */
-.slide-ecom .post-heading { color: var(--color-ecom) !important; }
-.slide-ecom .post-title-color { color: var(--color-ecom) !important; }
-.slide-ecom .area-button {
-    border-color: var(--color-ecom) !important;
-    color: var(--color-ecom) !important;
-}
-.slide-ecom .area-button:hover {
-    background: var(--color-ecom) !important;
-    color: #000 !important;
-    box-shadow: 0 0 30px rgba(var(--color-ecom-rgb), 0.5) !important;
-}
-.slide-ecom .area-button .button-arrow svg {
-    stroke: var(--color-ecom) !important;
-}
-.slide-ecom .area-button:hover .button-arrow svg {
-    stroke: #000 !important;
+/* Post Heading (Überschrift wie "IT Dienstleistungen") */
+.swiper-slide .post-heading {
+    color: var(--current-area-color, var(--color-development)) !important;
+    transition: color 0.5s ease !important;
 }
 
-/* === CONSULTING - Gold #ffaa00 === */
-.slide-consulting .post-heading { color: var(--color-consulting) !important; }
-.slide-consulting .post-title-color { color: var(--color-consulting) !important; }
-.slide-consulting .coming-soon-badge {
-    color: var(--color-consulting) !important;
-    border-color: rgba(var(--color-consulting-rgb), 0.3) !important;
-    background: rgba(var(--color-consulting-rgb), 0.05) !important;
-    animation: pulseGlowConsulting 2s ease-in-out infinite;
-}
-.slide-consulting .coming-soon-badge .badge-icon svg {
-    stroke: var(--color-consulting) !important;
-}
-@keyframes pulseGlowConsulting {
-    0%, 100% { 
-        box-shadow: 0 0 20px rgba(255, 170, 0, 0.1);
-        border-color: rgba(255, 170, 0, 0.3);
-    }
-    50% { 
-        box-shadow: 0 0 30px rgba(255, 170, 0, 0.25);
-        border-color: rgba(255, 170, 0, 0.5);
-    }
+/* Post Title Color (z.B. "Development") */
+.swiper-slide .post-title-color {
+    color: var(--current-area-color, var(--color-development)) !important;
+    transition: color 0.5s ease !important;
 }
 
-/* === VENDING - Purple #aa00ff === */
-.slide-vending .post-heading { color: var(--color-vending) !important; }
-.slide-vending .post-title-color { color: var(--color-vending) !important; }
-.slide-vending .coming-soon-badge {
-    color: var(--color-vending) !important;
-    border-color: rgba(var(--color-vending-rgb), 0.3) !important;
-    background: rgba(var(--color-vending-rgb), 0.05) !important;
-    animation: pulseGlowVending 2s ease-in-out infinite;
+/* Coming Soon Badge - dynamische Farbe */
+.coming-soon-badge {
+    color: var(--current-area-color, var(--primary-color)) !important;
+    border-color: var(--current-area-color-dim, rgba(255, 170, 0, 0.3)) !important;
+    background: var(--current-area-color-bg, rgba(255, 170, 0, 0.05)) !important;
+    animation: pulseGlowCurrent 2s ease-in-out infinite;
 }
-.slide-vending .coming-soon-badge .badge-icon svg {
-    stroke: var(--color-vending) !important;
+.coming-soon-badge .badge-icon svg {
+    stroke: var(--current-area-color, var(--primary-color)) !important;
 }
-@keyframes pulseGlowVending {
+
+@keyframes pulseGlowCurrent {
     0%, 100% { 
-        box-shadow: 0 0 20px rgba(170, 0, 255, 0.1);
-        border-color: rgba(170, 0, 255, 0.3);
+        box-shadow: 0 0 20px var(--current-area-color-dim, rgba(255, 170, 0, 0.1));
     }
     50% { 
-        box-shadow: 0 0 30px rgba(170, 0, 255, 0.25);
-        border-color: rgba(170, 0, 255, 0.5);
+        box-shadow: 0 0 30px var(--current-area-color-glow, rgba(255, 170, 0, 0.25));
     }
 }
 
@@ -143,12 +110,7 @@
     box-shadow: 0 0 10px rgba(var(--color-vending-rgb), 0.5) !important;
 }
 
-/* === Slider Pagination - Bereichsfarben === */
-.swiper-slide-pagination .swiper-pagination-bullet-active {
-    transition: background 0.3s ease;
-}
-
-/* Helper Classes (Legacy) */
+/* Helper Classes */
 .color-development { color: var(--color-development) !important; }
 .color-ecom { color: var(--color-ecom) !important; }
 .color-consulting { color: var(--color-consulting) !important; }

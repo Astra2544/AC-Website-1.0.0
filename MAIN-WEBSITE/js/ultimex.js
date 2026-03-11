@@ -327,7 +327,31 @@ $(function() {
                 ind.classList.add('active');
             }
         });
+        
+        // Update CSS color variables based on current slide
+        updateAreaColors(index);
     }
+    
+    // Function to update area colors dynamically
+    function updateAreaColors(index) {
+        var root = document.documentElement;
+        var colors = [
+            { color: '#00d4ff', rgb: '0, 212, 255' },    // Development - Cyan
+            { color: '#00ff88', rgb: '0, 255, 136' },    // Ecom - Green
+            { color: '#ffaa00', rgb: '255, 170, 0' },    // Consulting - Gold
+            { color: '#aa00ff', rgb: '170, 0, 255' }     // Vending - Purple
+        ];
+        
+        var current = colors[index] || colors[0];
+        
+        root.style.setProperty('--current-area-color', current.color);
+        root.style.setProperty('--current-area-color-glow', 'rgba(' + current.rgb + ', 0.5)');
+        root.style.setProperty('--current-area-color-dim', 'rgba(' + current.rgb + ', 0.3)');
+        root.style.setProperty('--current-area-color-bg', 'rgba(' + current.rgb + ', 0.05)');
+    }
+    
+    // Initialize colors on page load
+    updateAreaColors(0);
     
     var imgSwiper = new Swiper(".hero-slider-img .swiper-container", {
         preloadImages: false,
